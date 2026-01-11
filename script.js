@@ -3,23 +3,25 @@ let currentPage = 'home';
 let characters = [];
 let translations = {};
 
-// 1. 데이터 로드 함수
+// 1. 데이터 로드 함수 (상대 경로 수정)
 async function initApp() {
     try {
+        // 경로에서 ./ 를 제거하여 github pages 호환성 높임
         const charRes = await fetch('data/characters.json');
-const transRes = await fetch('data/translations.json');
+        const transRes = await fetch('data/translations.json');
         
-        if (!charRes.ok || !transRes.ok) throw new Error("JSON 파일을 찾을 수 없습니다.");
+        if (!charRes.ok || !transRes.ok) throw new Error("JSON 파일을 로드할 수 없습니다.");
         
         characters = await charRes.json();
         translations = await transRes.json();
         
-        render(); // 로드 성공 시 화면 그리기
+        render(); 
     } catch (e) {
         document.getElementById('app-view').innerHTML = `
             <div style="text-align:center; padding:50px;">
-                <h2 style="color:#ff4b2b;">데이터 로드 실패!</h2>
-                <p>로컬 서버(python -m http.server)를 통해 접속했는지 확인하세요.</p>
+                <h2 style="color:#ff4b2b;">Data Load Failed!</h2>
+                <p style="color:#94a3b8; margin-top:10px;">${e.message}</p>
+                <p style="margin-top:20px; font-size:12px;">폴더 구조가 data/characters.json 인지 확인하세요.</p>
             </div>`;
         console.error(e);
     }
@@ -40,15 +42,18 @@ function changeLang(lang) {
 function navigateTo(page) {
     currentPage = page;
     render();
+    // 모바일 닫기 로직
     if (window.innerWidth <= 768) {
         document.getElementById('sidebar').classList.remove('active');
         document.getElementById('main-content').classList.remove('pushed');
     }
 }
 
-// 4. 화면 렌더링 핵심 로직
+// 4. 화면 렌더링
 function render() {
     const texts = translations[currentLang];
+    if(!texts) return; // 번역 데이터 없으면 중단
+
     const app = document.getElementById('app-view');
     const menu = document.getElementById('nav-menu');
 
@@ -60,11 +65,11 @@ function render() {
         <div class="nav-item ${currentPage === 'tierlist' ? 'active' : ''}" onclick="navigateTo('tierlist')">${texts.nav_tierlist}</div>
     `;
 
-    // 언어 버튼 강조
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(`lang-${currentLang}`).classList.add('active');
+    if(document.getElementById(`lang-${currentLang}`)) {
+        document.getElementById(`lang-${currentLang}`).classList.add('active');
+    }
 
-    // 페이지 전환
     if (currentPage === 'home') {
         app.innerHTML = `
             <div style="text-align: center; padding-top: 20px;">
@@ -132,7 +137,8 @@ function renderTierList(container, texts) {
             html += `<td class="char-cell"><div class="char-grid">`;
             characters.filter(c => c.tier === t && c.position === p).forEach(char => {
                 const gradeClass = char.grade.replace('+', 'plus').replace('-', 'minus');
-                html += `<div class="char-card card-${t.replace('+', 'plus')}">
+                const tierClass = t.replace('+', 'plus');
+                html += `<div class="char-card card-${tierClass}">
                             <div class="img-box">
                                 <img src="images/${char.img}" onerror="this.src='https://via.placeholder.com/80x100'">
                                 <div class="grade-tag grade-${gradeClass}">${char.grade}</div>
@@ -147,6 +153,5 @@ function renderTierList(container, texts) {
     container.innerHTML = html + `</tbody></table></div>`;
 }
 
-// 실행 시작
-
+// 초기 실행
 initApp();
