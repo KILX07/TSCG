@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Spike Cross Guide</title>
-    <link rel="stylesheet" href="style.css">
-<script src="script.js"></script>
+    <!-- 경로에서 ./ 를 제거하여 현재 폴더 기준으로 설정 -->
+    <link rel="stylesheet" href="style.css?v=1.1">
 </head>
 <body>
     <!-- 메뉴 토글 버튼 -->
@@ -13,9 +13,9 @@
 
     <!-- 사이드바 -->
     <nav class="sidebar" id="sidebar">
-        <div class="logo">THE SPIKE CROSS<br>TSCG TIER RIST</div>
+        <div class="logo">THE SPIKE CROSS<br><span style="font-size: 0.8rem; opacity: 0.8;">TSCG TIER LIST</span></div>
         <div class="nav-menu" id="nav-menu">
-            <!-- script.js가 여기에 메뉴를 그립니다 -->
+            <!-- script.js가 메뉴를 생성함 -->
         </div>
         
         <div class="lang-switcher">
@@ -25,10 +25,10 @@
         </div>
     </nav>
 
-    <!-- 콘텐츠 영역 -->
     <main class="main-content" id="main-content">
-        <!-- ⭐ 이 안에 내용이 그려집니다 -->
-        <div id="app-view"></div>
+        <div id="app-view">
+            <!-- 자바스크립트가 내용을 생성함 -->
+        </div>
 
         <footer class="site-footer">
             <p>© Copyright 2026. <strong>TSCG discord server</strong> all rights reserved.</p>
@@ -36,7 +36,6 @@
         </footer>
     </main>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=1.1"></script>
 </body>
-
 </html>
