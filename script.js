@@ -6,8 +6,8 @@ let translations = {};
 // 1. 데이터 로드 함수
 async function initApp() {
     try {
-        const charRes = await fetch('./data/characters.json');
-        const transRes = await fetch('./data/translations.json');
+        const charRes = await fetch('data/characters.json');
+const transRes = await fetch('data/translations.json');
         
         if (!charRes.ok || !transRes.ok) throw new Error("JSON 파일을 찾을 수 없습니다.");
         
@@ -148,4 +148,5 @@ function renderTierList(container, texts) {
 }
 
 // 실행 시작
+
 initApp();
