@@ -1,12 +1,13 @@
+/* --- [1. 전역 설정 및 폰트] --- */
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Pretendard:wght@600;900&display=swap');
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-serif; display: flex; min-height: 100vh; overflow-x: hidden; }
 
-/* --- [사이드바 애니메이션] --- */
+/* --- [2. 사이드바 디자인] --- */
 .sidebar {
     width: 260px; height: 100vh; background: #11131a;
-    position: fixed; top: 0; left: -260px; /* 숨김 */
+    position: fixed; top: 0; left: -260px;
     border-right: 1px solid rgba(255,255,255,0.1);
     padding: 80px 20px 20px; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1500;
     display: flex; flex-direction: column;
@@ -22,78 +23,96 @@ body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-s
 .main-content { flex: 1; padding: 100px 40px 40px; transition: 0.4s ease; width: 100%; }
 .main-content.pushed { margin-left: 260px; }
 
-/* --- [티어표 디자인] --- */
-.table-wrapper { width: 100%; overflow-x: auto; border-radius: 20px; }
-.tier-table { width: 100%; border-collapse: collapse; background: #161922; table-layout: fixed; min-width: 800px; }
+/* --- [3. 티어표 디자인 - 모바일 가로스크롤 핵심] --- */
+.table-wrapper { 
+    width: 100%; 
+    overflow-x: auto; /* 가로 스크롤 허용 */
+    -webkit-overflow-scrolling: touch; 
+    border-radius: 20px; 
+    background: #161922;
+}
+
+.tier-table { 
+    width: 100%; 
+    min-width: 950px; /* ⭐ 모바일에서도 찌그러지지 않게 최소 너비 강제 고정 (PC 뷰 유지) */
+    border-collapse: collapse; 
+    table-layout: fixed; 
+}
+
 .tier-table th { background: #0d0f14; padding: 15px; color: #475569; font-size: 0.8rem; border-right: 1px solid rgba(255,255,255,0.05); }
-.tier-label { width: 110px; text-align: center; font-family: 'Black Han Sans'; font-size: 3rem; border-right: 2px solid #0a0b10; }
+
+.tier-label { 
+    width: 110px; 
+    text-align: center; 
+    font-family: 'Black Han Sans'; 
+    font-size: 3rem; 
+    border-right: 2px solid #0a0b10; 
+}
+
 .char-cell { padding: 20px; border-bottom: 2px solid #0a0b10; border-right: 1px solid rgba(255,255,255,0.05); vertical-align: top; }
 .char-cell:last-child, .tier-table th:last-child { border-right: none; }
 
-/* 티어 색상 */
+/* 포지션 내 캐릭터 3열 그리드 강제 유지 */
+.char-grid { 
+    display: grid !important; 
+    grid-template-columns: repeat(3, 1fr) !important; /* ⭐ 무조건 가로 3개 */
+    gap: 15px; 
+}
+
+/* --- [4. 캐릭터 카드 절대 크기 고정] --- */
+.char-card { width: 80px !important; text-align: center; transition: 0.3s; margin: 0 auto; }
+.img-box { 
+    width: 80px !important; 
+    height: 100px !important; 
+    border-radius: 10px; 
+    overflow: hidden !important; 
+    background: #000; 
+    border: 2px solid rgba(255,255,255,0.1); 
+    position: relative; 
+}
+.img-box img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block; }
+
+.char-name { 
+    margin-top: 8px; 
+    font-size: 11px; 
+    color: #94a3b8; 
+    font-weight: bold;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; /* 이름 길면 ... 처리 */
+}
+
+/* 티어 색상 및 효과 */
 .t-Splus { color: #ff4b2b !important; text-shadow: 0 0 10px rgba(255, 75, 43, 0.5); }
 .t-S { color: #f9d423 !important; }
 .t-Aplus { color: #a3e635 !important; }
 .t-A { color: #a855f7 !important; text-shadow: 0 0 10px rgba(168, 85, 247, 0.4); }
 
-/* 캐릭터 카드 */
-.char-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-.char-card { width: 80px; text-align: center; transition: 0.3s; margin: 0 auto; }
-.img-box { width: 80px; height: 100px; border-radius: 10px; overflow: hidden; background: #000; border: 2px solid rgba(255,255,255,0.1); position: relative; }
-.img-box img { width: 100%; height: 100%; object-fit: cover; }
-
-/* --- 티어별 호버 글로우 효과 최종 --- */
-
-/* S+ 호버 (레드) */
-.card-Splus:hover .img-box { 
-    border-color: #ff4b2b !important; 
-    box-shadow: 0 0 20px rgba(255, 75, 43, 0.8); 
-    transform: translateY(-5px); 
-}
-
-/* S 호버 (옐로우) */
-.card-S:hover .img-box { 
-    border-color: #f9d423 !important; 
-    box-shadow: 0 0 20px rgba(249, 212, 35, 0.8); 
-    transform: translateY(-5px); 
-}
-
-/* ⭐ A+ 호버 (연두색) - 이 부분이 누락되었을 수 있습니다 */
-.card-Aplus:hover .img-box { 
-    border-color: #a3e635 !important; 
-    box-shadow: 0 0 20px rgba(163, 230, 53, 0.8); 
-    transform: translateY(-5px); 
-}
-
-/* A 호버 (보라색) */
-.card-A:hover .img-box { 
-    border-color: #a855f7 !important; 
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.8); 
-    transform: translateY(-5px); 
-}
-
-/* 부드러운 전환을 위해 추가 */
-.img-box {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+.card-Splus:hover .img-box { border-color: #ff4b2b; box-shadow: 0 0 15px #ff4b2b; transform: translateY(-5px); }
+.card-S:hover .img-box { border-color: #f9d423; box-shadow: 0 0 15px #f9d423; transform: translateY(-5px); }
+.card-A:hover .img-box { border-color: #a855f7; box-shadow: 0 0 15px #a855f7; transform: translateY(-5px); }
 
 /* 배지 */
 .grade-tag { position: absolute; bottom: 0; right: 0; padding: 2px 4px; font-size: 9px; font-weight: 900; border-top-left-radius: 8px; color: #fff; }
-.grade-Splus { background: #ff4b2b; } .grade-S { background: #f9d423; color: #000; } .grade-Sminus { background: #fef08a; color: #000; } .grade-A { background: #a855f7; }
+.grade-Splus { background: #ff4b2b; } .grade-S { background: #f9d423; color: #000 !important; } .grade-Sminus { background: #fef08a; color: #000 !important; } .grade-A { background: #a855f7; }
 
 /* 메뉴/언어 버튼 */
 .nav-item { display: block; padding: 15px 20px; margin-bottom: 8px; border-radius: 10px; color: #64748b; text-decoration: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
-.nav-item.active { background: #3b82f6; color: #fff; }
+.nav-item.active { background: #3b82f6 !important; color: #fff !important; }
 .lang-switcher { margin-top: auto; display: flex; gap: 5px; justify-content: center; }
 .lang-btn { background: none; border: 1px solid rgba(255,255,255,0.1); color: #64748b; padding: 5px 8px; border-radius: 5px; cursor: pointer; font-size: 11px; }
 .lang-btn.active { border-color: #3b82f6; color: #fff; }
 
 .site-footer { margin-top: 80px; text-align: center; color: #475569; padding: 20px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 12px; }
 
-/* 모바일 대응 */
+/* ------------------------------------------------------
+   ⭐ 모바일 전용 미세조정 (축소판 구현)
+--------------------------------------------------------- */
 @media (max-width: 768px) {
-    .main-content.pushed { margin-left: 0; }
-    .sidebar { width: 260px; }
-    .main-content { padding: 80px 20px 40px; }
+    .main-content { padding: 80px 10px 40px !important; }
+    .main-content.pushed { margin-left: 0 !important; }
     h1 { font-size: 2.2rem !important; }
+    
+    /* 사이드바 너비 조절 */
+    .sidebar { width: 240px; }
 }
