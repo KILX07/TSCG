@@ -126,11 +126,21 @@ function render() {
 function renderTierList(container, texts) {
     const tiers = ["S+", "S", "A+", "A"];
     const positions = ["WS", "SE", "MB"];
-    let html = `<h1 style="font-family: 'Black Han Sans'; font-size: 3.5rem; margin-bottom: 40px; text-align: center;">${texts.nav_tierlist}</h1>
-                <div style="width:100%; overflow-x:auto; border-radius:20px;">
-                <table class="tier-table"><thead><tr>
-                <th style="width:110px;">${texts.tier}</th><th>${texts.ws}</th><th>${texts.se}</th><th>${texts.mb}</th>
-                </tr></thead><tbody>`;
+    let html = `<h1 style="font-family: 'Black Han Sans'; font-size: 3.5rem; margin-bottom: 40px; text-align: center;">${texts.nav_tierlist}</h1>`;
+    
+    // ⭐ table-wrapper 추가
+    html += `<div class="table-wrapper">
+                <table class="tier-table">
+                    <thead>
+                        <tr>
+                            <th style="width:110px;">${texts.tier}</th>
+                            <th>${texts.ws}</th>
+                            <th>${texts.se}</th>
+                            <th>${texts.mb}</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
     tiers.forEach(t => {
         html += `<tr><td class="tier-label t-${t.replace('+', 'plus')}">${t}</td>`;
         positions.forEach(p => {
@@ -143,7 +153,7 @@ function renderTierList(container, texts) {
                                 <img src="images/${char.img}" onerror="this.src='https://via.placeholder.com/80x100'">
                                 <div class="grade-tag grade-${gradeClass}">${char.grade}</div>
                             </div>
-                            <div style="margin-top:8px; font-size:11px; color:#94a3b8; font-weight:bold;">${char.name[currentLang]}</div>
+                            <div class="char-name">${char.name[currentLang]}</div>
                         </div>`;
             });
             html += `</div></td>`;
@@ -155,3 +165,4 @@ function renderTierList(container, texts) {
 
 // 초기 실행
 initApp();
+
