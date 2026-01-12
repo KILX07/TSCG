@@ -4,24 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Spike Cross Guide</title>
-    <!-- v=숫자를 붙여서 캐시를 강제로 무력화합니다 -->
-    <link rel="stylesheet" href="style.css?v=1.5">
+    <style>
+        /* --- [강제 디자인 코드 시작] --- */
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Pretendard:wght@600;900&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body { 
+            background-color: #0a0b10 !important; 
+            color: #fff !important; 
+            font-family: 'Pretendard', sans-serif; 
+            display: flex; 
+            min-height: 100vh; 
+            overflow-x: hidden; 
+        }
+
+        /* --- [메뉴 버튼] --- */
+        .menu-toggle {
+            position: fixed; top: 20px; left: 20px; z-index: 3000;
+            background: #3b82f6 !important; color: white !important;
+            border: none; padding: 12px 20px; border-radius: 10px;
+            cursor: pointer; font-family: 'Black Han Sans'; font-size: 15px;
+            min-width: 110px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+            white-space: nowrap;
+        }
+
+        /* --- [사이드바 - 다크모드 강제 고정] --- */
+        .sidebar {
+            width: 260px; height: 100vh;
+            background: #11131a !important; /* ⭐ 하얀 바 방지용 강제 고정 */
+            position: fixed; top: 0; left: -260px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            padding: 20px; display: flex; flex-direction: column;
+            z-index: 2000; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar.active { left: 0 !important; }
+
+        .logo {
+            margin-top: 80px; margin-bottom: 40px; padding-left: 10px;
+            font-family: 'Black Han Sans', sans-serif; font-size: 1.4rem;
+            color: #3b82f6 !important; line-height: 1.2;
+        }
+        .logo span { display: block; font-size: 0.75rem; color: #64748b; margin-top: 5px; }
+
+        /* --- [메뉴 아이템 정렬] --- */
+        .nav-item {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important; /* 텍스트 정중앙 */
+            height: 55px; width: 100%;
+            margin-bottom: 12px; border-radius: 12px;
+            color: #94a3b8 !important; text-decoration: none;
+            font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        .nav-item.active {
+            background: #3b82f6 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        /* --- [메인 콘텐츠 및 티어표] --- */
+        .main-content {
+            flex: 1; padding: 100px 20px 40px;
+            transition: 0.4s ease; width: 100%;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .main-content.pushed { margin-left: 260px; }
+
+        .table-wrapper { width: 100%; max-width: 1100px; overflow-x: auto; border-radius: 20px; background: #161922; }
+        .tier-table { width: 100%; min-width: 920px; border-collapse: collapse; table-layout: fixed; }
+        .tier-table th { background: #0d0f14; padding: 15px; color: #475569; font-size: 0.8rem; border-right: 1px solid rgba(255,255,255,0.05); }
+        .tier-label { width: 110px; text-align: center; font-family: 'Black Han Sans'; font-size: 3rem; border-right: 2px solid #0a0b10; }
+        .char-cell { padding: 20px; border-bottom: 1px solid #0a0b10; border-right: 1px solid rgba(255, 255, 255, 0.05); vertical-align: top; }
+        .char-grid { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 15px; justify-items: center; }
+        
+        .char-card { width: 80px !important; text-align: center; }
+        .img-box { width: 80px; height: 100px; border-radius: 8px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,0.1); position: relative; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .char-name { margin-top: 8px; font-size: 11px; color: #94a3b8; font-weight: bold; white-space: nowrap; }
+
+        /* 티어별 색상 */
+        .t-Splus { color: #ff4b2b !important; }
+        .t-S { color: #f9d423 !important; }
+        .t-Aplus { color: #a3e635 !important; }
+        .t-A { color: #a855f7 !important; text-shadow: 0 0 10px rgba(168, 85, 247, 0.5); }
+
+        /* 글로우 효과 */
+        .card-Splus:hover .img-box { border-color: #ff4b2b; box-shadow: 0 0 15px #ff4b2b; transform: translateY(-5px); }
+        .card-S:hover .img-box { border-color: #f9d423; box-shadow: 0 0 15px #f9d423; transform: translateY(-5px); }
+        .card-A:hover .img-box { border-color: #a855f7; box-shadow: 0 0 15px #a855f7; transform: translateY(-5px); }
+        .card-Aplus:hover .img-box { border-color: #a3e635; box-shadow: 0 0 15px #a3e635; transform: translateY(-5px); }
+
+        /* 배지 */
+        .grade-tag { position: absolute; bottom: 0; right: 0; padding: 2px 4px; font-size: 9px; font-weight: 900; border-top-left-radius: 8px; color: #fff; }
+        .grade-Splus { background: #ff4b2b; } .grade-S { background: #f9d423; color: #000 !important; } .grade-Sminus { background: #fef08a; color: #000 !important; } .grade-A { background: #a855f7; }
+
+        /* 언어선택기 & 푸터 */
+        .lang-switcher { margin-top: auto; display: flex; gap: 5px; justify-content: center; padding-bottom: 20px; }
+        .lang-btn { background: none; border: 1px solid rgba(255,255,255,0.1); color: #64748b; padding: 6px 10px; border-radius: 5px; cursor: pointer; font-size: 11px; }
+        .lang-btn.active { border-color: #3b82f6; color: #fff; }
+        .site-footer { margin-top: 50px; text-align: center; color: #475569; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); width: 100%; max-width: 800px; font-size: 12px; }
+
+        /* 모바일 세밀 조정 */
+        @media (max-width: 768px) {
+            .main-content.pushed { margin-left: 0 !important; }
+            .tier-table { min-width: 850px !important; }
+            .tier-label { width: 70px !important; font-size: 2rem !important; }
+            .sidebar { width: 240px !important; }
+        }
+    </style>
 </head>
 <body>
-    <!-- 메뉴 버튼 -->
     <button class="menu-toggle" onclick="toggleSidebar()">☰ MENU</button>
 
-    <!-- 사이드바 -->
     <nav class="sidebar" id="sidebar">
-        <div class="logo">
-            THE SPIKE CROSS
-            <span>TSCG TIER LIST</span>
-        </div>
-
-        <div class="nav-menu" id="nav-menu">
-            <!-- script.js가 메뉴를 생성함 -->
-        </div>
-        
+        <div class="logo">THE SPIKE CROSS<span>TSCG TIER LIST</span></div>
+        <div id="nav-menu"></div>
         <div class="lang-switcher">
             <button onclick="changeLang('ko')" class="lang-btn" id="lang-ko">KO</button>
             <button onclick="changeLang('en')" class="lang-btn" id="lang-en">EN</button>
@@ -29,18 +127,14 @@
         </div>
     </nav>
 
-    <!-- 메인 콘텐츠 영역 -->
     <main class="main-content" id="main-content">
-        <div id="app-view">
-            <!-- script.js가 내용을 생성함 -->
-        </div>
-
+        <div id="app-view" style="width: 100%;"></div>
         <footer class="site-footer">
             <p>© Copyright 2026. <strong>TSCG discord server</strong> all rights reserved.</p>
             <p style="font-size: 10px; opacity: 0.5; margin-top:5px;">This is not an official website.</p>
         </footer>
     </main>
 
-    <script src="script.js?v=1.5"></script>
+    <script src="script.js?v=2.0"></script>
 </body>
 </html>
