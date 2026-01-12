@@ -107,14 +107,88 @@ body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-s
 .site-footer { margin-top: 80px; text-align: center; color: #475569; padding: 20px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 12px; }
 
 /* ------------------------------------------------------
-   ⭐ 모바일 전용 미세조정 (축소판 구현)
+   ⭐ 모바일 전용 세밀 조정 (PC 뷰 축소판 최적화)
 --------------------------------------------------------- */
 @media (max-width: 768px) {
-    .main-content { padding: 80px 10px 40px !important; }
-    .main-content.pushed { margin-left: 0 !important; }
-    h1 { font-size: 2.2rem !important; }
+    /* 전체 배경 여백 조정 */
+    .main-content {
+        padding: 60px 5px 30px !important; /* 위쪽(메뉴버튼공간) 외엔 여백 최소화 */
+    }
+
+    /* 메뉴 버튼 크기 축소 및 위치 조정 */
+    .menu-toggle {
+        top: 15px !important;
+        left: 15px !important;
+        padding: 8px 12px !important;
+        font-size: 11px !important;
+        border-radius: 6px !important;
+    }
+
+    /* 본문 제목 크기 축소 */
+    h1 {
+        font-size: 1.8rem !important;
+        margin-top: 10px !important;
+        margin-bottom: 20px !important;
+    }
+
+    /* 티어표 테이블 구조 최적화 */
+    .table-wrapper {
+        border-radius: 10px !important; /* 좁은 화면에선 곡률 축소 */
+    }
+
+    .tier-table {
+        min-width: 800px !important; /* 가로 크기를 약간 줄여서 한눈에 더 들어오게 함 */
+    }
+
+    /* 티어 이름(S+, S 등) 칸 너비 축소 */
+    .tier-label {
+        width: 70px !important; /* 110px에서 70px로 줄여 공간 확보 */
+        font-size: 2rem !important;
+        border-right: 1px solid #0a0b10 !important;
+    }
+
+    /* 캐릭터 칸 여백 조정 */
+    .char-cell {
+        padding: 10px 5px !important; /* 칸 내부 여백 축소 */
+        border-right: 1px solid rgba(255, 255, 255, 0.03) !important;
+    }
+
+    /* 캐릭터 그리드 간격 축소 */
+    .char-grid {
+        gap: 8px !important; /* 캐릭터 간 간격을 좁힘 */
+    }
+
+    /* 캐릭터 카드 크기 살짝 축소 (축소판 느낌 극대화) */
+    .char-card {
+        width: 70px !important;
+    }
+
+    .img-box {
+        width: 70px !important;
+        height: 88px !important; /* 가로세로 비율 유지하며 축소 */
+    }
+
+    .char-name {
+        font-size: 10px !important;
+        margin-top: 5px !important;
+    }
+
+    /* 등급 배지 크기 조절 */
+    .grade-tag {
+        font-size: 8px !important;
+        padding: 1px 3px !important;
+    }
+
+    /* 사이드바 너비 조정 */
+    .sidebar {
+        width: 220px !important;
+    }
     
-    /* 사이드바 너비 조절 */
-    .sidebar { width: 240px; }
+    /* 푸터 크기 조절 */
+    .site-footer {
+        margin-top: 40px !important;
+        padding: 20px !important;
+        font-size: 10px !important;
+    }
 }
 
