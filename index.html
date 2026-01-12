@@ -54,33 +54,63 @@
         }
         .nav-item.active { background: #3b82f6 !important; color: #ffffff !important; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
 
-        /* --- [4. 메인 콘텐츠 - 중앙 정렬 강제] --- */
+        /* --- [메인 콘텐츠 영역 - PC 정중앙 정렬 강제] --- */
         .main-content {
-            flex: 1; padding: 100px 20px 40px;
-            transition: 0.4s ease; width: 100%;
-            display: flex; flex-direction: column; align-items: center; /* PC 중앙 정렬 */
-        }
-        .main-content.pushed { margin-left: 260px; }
-
-        /* --- [5. 티어표 디자인 - 크기 강제 고정 (매우 중요)] --- */
-        .table-wrapper { 
-            width: 100%; 
-            max-width: 1100px; /* PC 정렬용 */
-            overflow-x: auto !important; /* 모바일 가로 스크롤 허용 */
-            border-radius: 20px; 
-            background: #161922; 
+            margin-left: 260px; /* 사이드바 너비 */
+            flex: 1;
+            padding: 80px 40px; /* 상단 여백 */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 가로 중앙 정렬 */
+            transition: 0.4s ease;
+            min-height: 100vh;
         }
 
-        .tier-table { 
-            /* ⭐ PC의 레이아웃을 그대로 유지하기 위해 1050px로 강제 고정 */
-            width: 1050px !important; 
-            min-width: 1050px !important; 
-            border-collapse: collapse; 
-            table-layout: fixed; 
+        /* 표와 제목을 감싸는 실제 너비 제한 컨테이너 */
+        #app-view {
+            width: 100%;
+            max-width: 1050px; /* ⭐ 표의 너비(1050px)와 똑같이 맞춰서 정렬 유지 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .tier-table th { background: #0d0f14; padding: 15px; color: #475569; font-size: 0.8rem; border-right: 1px solid rgba(255,255,255,0.05); }
-        .tier-label { width: 120px !important; text-align: center; font-family: 'Black Han Sans'; font-size: 3.5rem; border-right: 2px solid #0a0b10; }
+        /* --- [티어표 크기 박제] --- */
+        .table-wrapper {
+            width: 100%; /* 부모인 app-view(1050px)에 꽉 차게 함 */
+            overflow-x: auto; 
+            border-radius: 20px;
+            background: #161922;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .tier-table {
+            width: 1050px !important; /* 모바일/PC 동일하게 너비 박제 */
+            min-width: 1050px !important;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        /* 헤더 텍스트 색상 및 정렬 */
+        .tier-table th {
+            background: #0d0f14;
+            padding: 15px;
+            color: #64748b;
+            font-size: 0.85rem;
+            font-weight: 900;
+            border-right: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+        }
+
+        /* 사이드바 active 시 본문 밀기 (PC 전용) */
+        .main-content.pushed {
+            margin-left: 260px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content { margin-left: 0 !important; padding: 70px 15px !important; }
+            .main-content.pushed { margin-left: 0 !important; }
+        }
         
         /* 캐릭터 칸 너비 고정하여 겹침 방지 */
         .char-cell { 
@@ -157,3 +187,4 @@
     <script src="script.js?v=2.1"></script>
 </body>
 </html>
+
