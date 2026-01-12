@@ -5,8 +5,8 @@
   { "id": "lucas", "name": { "ko": "루카스", "en": "Lucas", "jp": "ルーカス" }, "tier": "S+", "grade": "S+", "position": "WS", "img": "lucas.png" },
   { "id": "isabel", "name": { "ko": "이사벨", "en": "Isabel", "jp": "イザベル" }, "tier": "S", "grade": "S", "position": "WS", "img": "isabel.png" },
   { "id": "hongsi", "name": { "ko": "홍시", "en": "Hongsi", "jp": "ホンシ" }, "tier": "S", "grade": "S", "position": "WS", "img": "hongsi.png" },
-  { "id": "jenny", "name": { "ko": "제니", "en": "Jenny", "jp": "ジェニー" }, "tier": "S", "grade": "S", "position": "WS", "img": "jenny.png" },
-  { "id": "namjaehyun", "name": { "ko": "남재현", "en": "Nam Jaehyun", "jp": "ナム・ジェヒョン" }, "tier": "A+", "grade": "S", "position": "WS", "img": "namjaehyun.png" },
+  { "id": "jenny", "name": { "ko": "제니", "en": "Jenny", "jp": "ジェニー" }, "tier": "A", "grade": "S", "position": "WS", "img": "jenny.png" },
+  { "id": "namjaehyun", "name": { "ko": "남재현", "en": "Nam Jaehyun", "jp": "ナム・ジェヒョン" }, "tier": "A", "grade": "S", "position": "WS", "img": "namjaehyun.png" },
   { "id": "leeyoungseop", "name": { "ko": "이영섭", "en": "Lee Youngseop", "jp": "イ・ヨンソプ" }, "tier": "A+", "grade": "S", "position": "WS", "img": "leeyoungseop.png" },
   { "id": "oasis", "name": { "ko": "오아시스", "en": "Oasis", "jp": "オアシス" }, "tier": "A+", "grade": "S", "position": "WS", "img": "oasis.png" },
   { "id": "leon", "name": { "ko": "레온", "en": "Leon", "jp": "レオン" }, "tier": "A+", "grade": "S-", "position": "WS", "img": "leon.png" },
@@ -29,7 +29,7 @@
   { "id": "tania", "name": { "ko": "타니아", "en": "Tania", "jp": "タニア" }, "tier": "A+", "grade": "S-", "position": "SE", "img": "tania.png" },
   { "id": "jungsohee", "name": { "ko": "정소희", "en": "Jung Sohee", "jp": "チョン・ソヒ" }, "tier": "A", "grade": "S", "position": "SE", "img": "jungsohee.png" },
   { "id": "halla", "name": { "ko": "한라", "en": "Halla", "jp": "ハルラ" }, "tier": "S+", "grade": "S", "position": "MB", "img": "halla.png" },
-  { "id": "claire", "name": { "ko": "클레르", "en": "Claire", "jp": "クレール" }, "tier": "S", "grade": "S", "position": "MB", "img": "claire.png" },
+  { "id": "claire", "name": { "ko": "클레르", "en": "Claire", "jp": "クレール" }, "tier": "S+", "grade": "S", "position": "MB", "img": "claire.png" },
   { "id": "kimheesung", "name": { "ko": "김희성", "en": "Kim Heesung", "jp": "キム・ヒソン" }, "tier": "S", "grade": "S", "position": "MB", "img": "kimheesung.png" },
   { "id": "sanghyeon", "name": { "ko": "상현", "en": "Sanghyeon", "jp": "サンヒョン" }, "tier": "S", "grade": "S", "position": "MB", "img": "sanghyeon.png" },
   { "id": "roberto", "name": { "ko": "로베르토", "en": "Roberto", "jp": "ロベルト" }, "tier": "A+", "grade": "S", "position": "MB", "img": "roberto.png" },
@@ -39,3 +39,4 @@
   { "id": "clyde", "name": { "ko": "클라이드", "en": "Clyde", "jp": "クライド" }, "tier": "A", "grade": "S-", "position": "MB", "img": "clyde.png" }
 
 ]
+
