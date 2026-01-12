@@ -91,6 +91,7 @@ body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-s
 .card-Splus:hover .img-box { border-color: #ff4b2b; box-shadow: 0 0 15px #ff4b2b; transform: translateY(-5px); }
 .card-S:hover .img-box { border-color: #f9d423; box-shadow: 0 0 15px #f9d423; transform: translateY(-5px); }
 .card-A:hover .img-box { border-color: #a855f7; box-shadow: 0 0 15px #a855f7; transform: translateY(-5px); }
+.card-Aplus:hover .img-box { border-color: #a3e635; box-shadow: 0 0 15px #a3e635; transform: translateY(-5px); }
 
 /* 배지 */
 .grade-tag { position: absolute; bottom: 0; right: 0; padding: 2px 4px; font-size: 9px; font-weight: 900; border-top-left-radius: 8px; color: #fff; }
@@ -116,3 +117,4 @@ body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-s
     /* 사이드바 너비 조절 */
     .sidebar { width: 240px; }
 }
+
