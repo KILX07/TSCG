@@ -30,7 +30,7 @@
   { "id": "jungsohee", "name": { "ko": "정소희", "en": "Jung Sohee", "jp": "チョン・ソヒ" }, "tier": "A", "grade": "S", "position": "SE", "img": "jungsohee.png" },
   { "id": "halla", "name": { "ko": "한라", "en": "Halla", "jp": "ハルラ" }, "tier": "S+", "grade": "S", "position": "MB", "img": "halla.png" },
   { "id": "claire", "name": { "ko": "클레르", "en": "Claire", "jp": "クレール" }, "tier": "S+", "grade": "S", "position": "MB", "img": "claire.png" },
-  { "id": "kimheesung", "name": { "ko": "김희성", "en": "Kim Heesung", "jp": "キム・ヒソン" }, "tier": "S", "grade": "S", "position": "MB", "img": "kimheesung.png" },
+  { "id": "kimheesung", "name": { "ko": "김희성", "en": "Kim Heesung", "jp": "キム・ヒソン" }, "tier": "A", "grade": "S", "position": "MB", "img": "kimheesung.png" },
   { "id": "sanghyeon", "name": { "ko": "상현", "en": "Sanghyeon", "jp": "サンヒョン" }, "tier": "S", "grade": "S", "position": "MB", "img": "sanghyeon.png" },
   { "id": "roberto", "name": { "ko": "로베르토", "en": "Roberto", "jp": "ロベルト" }, "tier": "A+", "grade": "S", "position": "MB", "img": "roberto.png" },
   { "id": "atis", "name": { "ko": "아티스", "en": "Atis", "jp": "アティス" }, "tier": "A", "grade": "S", "position": "MB", "img": "atis.png" },
@@ -39,4 +39,5 @@
   { "id": "clyde", "name": { "ko": "클라이드", "en": "Clyde", "jp": "クライド" }, "tier": "A", "grade": "S-", "position": "MB", "img": "clyde.png" }
 
 ]
+
 
