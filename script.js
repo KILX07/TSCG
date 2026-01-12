@@ -111,7 +111,9 @@ function render() {
 function renderTierList(container, texts) {
     const tiers = ["S+", "S", "A+", "A"];
     const positions = ["WS", "SE", "MB"];
-    let html = `<h1 style="text-align:center; font-family:'Black Han Sans'; font-size:3.5rem; margin-bottom:50px;">${texts.nav_tierlist}</h1>`;
+    
+    // 제목을 표 너비 안에서 중앙 정렬하기 위해 스타일 추가
+    let html = `<h1 style="width:100%; text-align:center; font-family:'Black Han Sans'; font-size:3.5rem; margin-bottom:50px; letter-spacing:-1px;">${texts.nav_tierlist}</h1>`;
     
     html += `<div class="table-wrapper">
                 <table class="tier-table">
@@ -149,4 +151,5 @@ function renderTierList(container, texts) {
 
 // 초기 실행
 initApp();
+
 
