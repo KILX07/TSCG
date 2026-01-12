@@ -4,14 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Spike Cross Guide</title>
-    <!-- 경로에서 ./ 를 제거하여 현재 폴더 기준으로 설정 -->
-    <link rel="stylesheet" href="style.css?v=1.1">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- 메뉴 토글 버튼 -->
-    <button class="menu-toggle" onclick="toggleSidebar()">☰ MENU</button>
-
-  <!-- 메뉴 토글 버튼 -->
     <button class="menu-toggle" onclick="toggleSidebar()">☰ MENU</button>
 
     <nav class="sidebar" id="sidebar">
@@ -31,14 +27,17 @@
     </div>
 </nav>
 
+    <!-- 콘텐츠 영역 -->
+    <main class="main-content" id="main-content">
+        <!-- ⭐ 이 안에 내용이 그려집니다 -->
+        <div id="app-view"></div>
+
         <footer class="site-footer">
-            <p>This site is an unofficial, <strong>personal fan site and has no official connection to suncyan</strong> </p>
-            <p style="font-size: 10px; opacity: 0.5; margin-top:5px;">© Copyright 2026. TSCG discord server all rights reserved.</p>
+            <p>© Copyright 2026. <strong>TSCG discord server</strong> all rights reserved.</p>
+            <p style="font-size: 10px; opacity: 0.5; margin-top:5px;">This is not an official website.</p>
         </footer>
     </main>
 
-    <script src="script.js?v=1.1"></script>
+    <script src="script.js"></script>
 </body>
 </html>
-
-
