@@ -8,7 +8,7 @@
   { "id": "jenny", "name": { "ko": "제니", "en": "Jenny", "jp": "ジェニー" }, "tier": "A", "grade": "S", "position": "WS", "img": "jenny.png" },
   { "id": "namjaehyun", "name": { "ko": "남재현", "en": "Nam Jaehyun", "jp": "ナム・ジェヒョン" }, "tier": "A", "grade": "S", "position": "WS", "img": "namjaehyun.png" },
   { "id": "leeyoungseop", "name": { "ko": "이영섭", "en": "Lee Youngseop", "jp": "イ・ヨンソプ" }, "tier": "A+", "grade": "S", "position": "WS", "img": "leeyoungseop.png" },
-  { "id": "oasis", "name": { "ko": "오아시스", "en": "Oasis", "jp": "オアシス" }, "tier": "A+", "grade": "S", "position": "WS", "img": "oasis.png" },
+  { "id": "oasis", "name": { "ko": "오아시스", "en": "Oasis", "jp": "オアシス" }, "tier": "A", "grade": "S", "position": "WS", "img": "oasis.png" },
   { "id": "leon", "name": { "ko": "레온", "en": "Leon", "jp": "レオン" }, "tier": "A+", "grade": "S-", "position": "WS", "img": "leon.png" },
   { "id": "mooyoung", "name": { "ko": "무영", "en": "Mooyoung", "jp": "ムヨン" }, "tier": "A", "grade": "S", "position": "SE", "img": "mooyoung.png" },
   { "id": "crow", "name": { "ko": "크로우", "en": "Crow", "jp": "クロウ" }, "tier": "A", "grade": "S-", "position": "WS", "img": "crow.png" },
@@ -39,6 +39,7 @@
   { "id": "clyde", "name": { "ko": "클라이드", "en": "Clyde", "jp": "クライド" }, "tier": "A", "grade": "S-", "position": "MB", "img": "clyde.png" }
 
 ]
+
 
 
 
