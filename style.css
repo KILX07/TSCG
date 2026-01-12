@@ -23,52 +23,65 @@ body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-s
 .main-content { flex: 1; padding: 100px 40px 40px; transition: 0.4s ease; width: 100%; }
 .main-content.pushed { margin-left: 260px; }
 
-/* --- [3. 티어표 디자인 - 모바일 가로스크롤 핵심] --- */
-.table-wrapper { 
-    width: 100%; 
-    overflow-x: auto; /* 가로 스크롤 허용 */
-    -webkit-overflow-scrolling: touch; 
-    border-radius: 20px; 
+/* --- [티어표 전체 구조 강제 고정] --- */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* 가로 스크롤 */
+    border-radius: 15px;
     background: #161922;
+    -webkit-overflow-scrolling: touch;
 }
 
-.tier-table { 
-    width: 100%; 
-    min-width: 950px; /* ⭐ 모바일에서도 찌그러지지 않게 최소 너비 강제 고정 (PC 뷰 유지) */
-    border-collapse: collapse; 
-    table-layout: fixed; 
+.tier-table {
+    /* 전체 너비를 920px로 강제 고정 (80px(라벨) + 280px*3(포지션)) */
+    width: 920px !important; 
+    min-width: 920px !important;
+    border-collapse: collapse;
+    table-layout: fixed; /* 칸 너비를 고정하는 핵심 설정 */
 }
 
-.tier-table th { background: #0d0f14; padding: 15px; color: #475569; font-size: 0.8rem; border-right: 1px solid rgba(255,255,255,0.05); }
-
-.tier-label { 
-    width: 110px; 
-    text-align: center; 
-    font-family: 'Black Han Sans'; 
-    font-size: 3rem; 
-    border-right: 2px solid #0a0b10; 
+/* 1. 티어 라벨 칸 (S+, S 등) */
+.tier-label {
+    width: 80px !important;
+    text-align: center;
+    font-family: 'Black Han Sans';
+    font-size: 2.5rem;
+    border-right: 2px solid #0a0b10;
+    background: #1a1d29;
 }
 
-.char-cell { padding: 20px; border-bottom: 2px solid #0a0b10; border-right: 1px solid rgba(255,255,255,0.05); vertical-align: top; }
-.char-cell:last-child, .tier-table th:last-child { border-right: none; }
-
-/* 포지션 내 캐릭터 3열 그리드 강제 유지 */
-.char-grid { 
-    display: grid !important; 
-    grid-template-columns: repeat(3, 1fr) !important; /* ⭐ 무조건 가로 3개 */
-    gap: 15px; 
+/* 2. 포지션별 캐릭터 칸 (WS, SE, MB 공통) */
+.char-cell {
+    width: 280px !important; /* 각 포지션 칸을 280px로 고정 */
+    padding: 15px 5px;
+    border-bottom: 1px solid #0a0b10;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    vertical-align: top;
 }
 
-/* --- [4. 캐릭터 카드 절대 크기 고정] --- */
-.char-card { width: 80px !important; text-align: center; transition: 0.3s; margin: 0 auto; }
-.img-box { 
-    width: 80px !important; 
-    height: 100px !important; 
-    border-radius: 10px; 
-    overflow: hidden !important; 
-    background: #000; 
-    border: 2px solid rgba(255,255,255,0.1); 
-    position: relative; 
+/* 3. 캐릭터 그리드 (한 칸 안에 3명씩) */
+.char-grid {
+    display: grid !important;
+    /* 80px 캐릭터 3명을 나란히 배치 (총 240px + 간격) */
+    grid-template-columns: repeat(3, 80px) !important; 
+    gap: 10px;
+    justify-content: center; /* 칸 내에서 중앙 정렬 */
+}
+
+/* 4. 캐릭터 카드 */
+.char-card {
+    width: 80px !important;
+    text-align: center;
+}
+
+.img-box {
+    width: 80px !important;
+    height: 100px !important;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
 }
 .img-box img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block; }
 
@@ -191,4 +204,5 @@ body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-s
         font-size: 10px !important;
     }
 }
+
 
