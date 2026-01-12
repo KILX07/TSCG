@@ -2,25 +2,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Pretendard:wght@600;900&display=swap');
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-serif; display: flex; min-height: 100vh; overflow-x: hidden; }
+body { 
+    background-color: #0a0b10; 
+    color: #fff; 
+    font-family: 'Pretendard', sans-serif; 
+    display: flex; 
+    min-height: 100vh; 
+    overflow-x: hidden; 
+}
 
-/* --- [1. 사이드바 & 로고 위치 보정] --- */
+/* --- [2. 메뉴 토글 버튼 (MENU)] --- */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 2500; /* 사이드바보다 위에 위치 */
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    min-width: 110px; /* 버튼 너비 확보하여 글자 깨짐 방지 */
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Black Han Sans';
+    font-size: 15px;
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+.menu-toggle:hover { transform: scale(1.05); background: #2563eb; }
+
+/* --- [3. 사이드바 디자인 - 다크모드 강제 고정] --- */
 .sidebar {
     width: 260px;
     height: 100vh;
-    background: #11131a;
+    background: #11131a !important; /* 강제 다크 배경 */
     position: fixed;
-    top: 0; left: -260px;
+    top: 0; 
+    left: -260px; /* 초기 상태 숨김 */
     border-right: 1px solid rgba(255,255,255,0.1);
-    padding: 20px; /* 기본 패딩 */
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    z-index: 1500;
+    z-index: 2000;
     transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
+.sidebar.active { left: 0; }
 
+/* 로고 위치 (버튼에 가려지지 않게 여백 조정) */
 .logo {
-    margin-top: 60px; /* ⭐ 메뉴 버튼(MENU)에 가려지지 않도록 상단 여백 추가 */
+    margin-top: 80px; /* 버튼 높이만큼 여백 확보 */
     margin-bottom: 40px;
     padding-left: 10px;
     font-family: 'Black Han Sans', sans-serif;
@@ -28,7 +61,6 @@ body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-s
     color: #3b82f6;
     line-height: 1.2;
 }
-
 .logo span {
     display: block;
     font-size: 0.75rem;
@@ -37,22 +69,44 @@ body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-s
     font-family: 'Pretendard';
 }
 
-/* --- [2. 메인 콘텐츠 및 티어표 중앙 정렬] --- */
+/* --- [4. 메뉴 아이템 - 중앙 정렬 보정] --- */
+.nav-item {
+    display: flex; /* Flex로 중앙 정렬 */
+    align-items: center; 
+    justify-content: flex-start;
+    height: 50px;
+    padding: 0 20px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.nav-item:hover { background: rgba(255, 255, 255, 0.05); color: #fff; }
+/* 활성화된 탭 (파란 박스) */
+.nav-item.active {
+    background: #3b82f6 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* --- [5. 메인 콘텐츠 및 티어표 중앙 정렬] --- */
 .main-content {
     flex: 1;
-    padding: 100px 20px 40px; /* 상단 여백 확보 */
+    padding: 100px 20px 40px;
     transition: 0.4s ease;
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center; /* ⭐ 티어표를 화면 중앙으로 정렬 */
+    align-items: center; /* 티어표 전체 중앙 정렬 */
 }
-
 .main-content.pushed { margin-left: 260px; }
 
 .table-wrapper {
     width: 100%;
-    max-width: 1100px; /* PC에서 너무 퍼지지 않게 제한 */
+    max-width: 1100px;
     overflow-x: auto;
     border-radius: 20px;
     background: #161922;
@@ -61,12 +115,11 @@ body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-s
 
 .tier-table {
     width: 100%;
-    min-width: 920px; /* 모바일 가로스크롤 유지 */
+    min-width: 920px;
     border-collapse: collapse;
     table-layout: fixed;
 }
 
-/* --- [3. 티어표 내부 디자인 미세 조정] --- */
 .tier-label {
     width: 110px;
     text-align: center;
@@ -78,7 +131,7 @@ body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-s
 .char-cell {
     padding: 20px 10px;
     border-bottom: 1px solid #0a0b10;
-    border-right: 1px solid rgba(255, 255, 255, 0.05); /* 포지션 경계선 */
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
     vertical-align: top;
 }
 .char-cell:last-child { border-right: none; }
@@ -90,12 +143,8 @@ body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-s
     justify-items: center;
 }
 
-/* 4. 캐릭터 카드 */
-.char-card {
-    width: 80px !important;
-    text-align: center;
-}
-
+/* 캐릭터 카드 */
+.char-card { width: 80px !important; text-align: center; }
 .img-box {
     width: 80px !important;
     height: 100px !important;
@@ -104,20 +153,12 @@ body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-s
     background: #000;
     border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
+    transition: 0.3s;
 }
 .img-box img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block; }
+.char-name { margin-top: 8px; font-size: 11px; color: #94a3b8; font-weight: bold; white-space: nowrap; }
 
-.char-name { 
-    margin-top: 8px; 
-    font-size: 11px; 
-    color: #94a3b8; 
-    font-weight: bold;
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis; /* 이름 길면 ... 처리 */
-}
-
-/* 티어 색상 및 효과 */
+/* 티어별 색상/효과 */
 .t-Splus { color: #ff4b2b !important; text-shadow: 0 0 10px rgba(255, 75, 43, 0.5); }
 .t-S { color: #f9d423 !important; }
 .t-Aplus { color: #a3e635 !important; }
@@ -132,100 +173,24 @@ body { background-color: #0a0b10; color: #fff; font-family: 'Pretendard', sans-s
 .grade-tag { position: absolute; bottom: 0; right: 0; padding: 2px 4px; font-size: 9px; font-weight: 900; border-top-left-radius: 8px; color: #fff; }
 .grade-Splus { background: #ff4b2b; } .grade-S { background: #f9d423; color: #000 !important; } .grade-Sminus { background: #fef08a; color: #000 !important; } .grade-A { background: #a855f7; }
 
-/* 메뉴/언어 버튼 */
-.nav-item { display: block; padding: 15px 20px; margin-bottom: 8px; border-radius: 10px; color: #64748b; text-decoration: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
-.nav-item.active { background: #3b82f6 !important; color: #fff !important; }
-.lang-switcher { margin-top: auto; display: flex; gap: 5px; justify-content: center; }
-.lang-btn { background: none; border: 1px solid rgba(255,255,255,0.1); color: #64748b; padding: 5px 8px; border-radius: 5px; cursor: pointer; font-size: 11px; }
+/* 언어 스위처 */
+.lang-switcher { margin-top: auto; display: flex; gap: 5px; justify-content: center; padding-bottom: 20px; }
+.lang-btn { background: none; border: 1px solid rgba(255,255,255,0.1); color: #64748b; padding: 6px 10px; border-radius: 5px; cursor: pointer; font-size: 11px; }
 .lang-btn.active { border-color: #3b82f6; color: #fff; }
 
-.site-footer { margin-top: 80px; text-align: center; color: #475569; padding: 20px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 12px; }
+/* 푸터 */
+.site-footer { margin-top: 80px; text-align: center; color: #475569; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); width: 100%; max-width: 800px; font-size: 12px; }
 
-/* ------------------------------------------------------
-   ⭐ 모바일 전용 세밀 조정 (PC 뷰 축소판 최적화)
---------------------------------------------------------- */
+/* --- [6. 모바일 전용 세밀 조정 (PC 뷰 축소판 최적화)] --- */
 @media (max-width: 768px) {
-    /* 전체 배경 여백 조정 */
-    .main-content {
-        padding: 60px 5px 30px !important; /* 위쪽(메뉴버튼공간) 외엔 여백 최소화 */
-    }
-
-    /* 메뉴 버튼 크기 축소 및 위치 조정 */
-    .menu-toggle {
-        top: 15px !important;
-        left: 15px !important;
-        padding: 8px 12px !important;
-        font-size: 11px !important;
-        border-radius: 6px !important;
-    }
-
-    /* 본문 제목 크기 축소 */
-    h1 {
-        font-size: 1.8rem !important;
-        margin-top: 10px !important;
-        margin-bottom: 20px !important;
-    }
-
-    /* 티어표 테이블 구조 최적화 */
-    .table-wrapper {
-        border-radius: 10px !important; /* 좁은 화면에선 곡률 축소 */
-    }
-
-    .tier-table {
-        min-width: 800px !important; /* 가로 크기를 약간 줄여서 한눈에 더 들어오게 함 */
-    }
-
-    /* 티어 이름(S+, S 등) 칸 너비 축소 */
-    .tier-label {
-        width: 70px !important; /* 110px에서 70px로 줄여 공간 확보 */
-        font-size: 2rem !important;
-        border-right: 1px solid #0a0b10 !important;
-    }
-
-    /* 캐릭터 칸 여백 조정 */
-    .char-cell {
-        padding: 10px 5px !important; /* 칸 내부 여백 축소 */
-        border-right: 1px solid rgba(255, 255, 255, 0.03) !important;
-    }
-
-    /* 캐릭터 그리드 간격 축소 */
-    .char-grid {
-        gap: 8px !important; /* 캐릭터 간 간격을 좁힘 */
-    }
-
-    /* 캐릭터 카드 크기 살짝 축소 (축소판 느낌 극대화) */
-    .char-card {
-        width: 70px !important;
-    }
-
-    .img-box {
-        width: 70px !important;
-        height: 88px !important; /* 가로세로 비율 유지하며 축소 */
-    }
-
-    .char-name {
-        font-size: 10px !important;
-        margin-top: 5px !important;
-    }
-
-    /* 등급 배지 크기 조절 */
-    .grade-tag {
-        font-size: 8px !important;
-        padding: 1px 3px !important;
-    }
-
-    /* 사이드바 너비 조정 */
-    .sidebar {
-        width: 220px !important;
-    }
-    
-    /* 푸터 크기 조절 */
-    .site-footer {
-        margin-top: 40px !important;
-        padding: 20px !important;
-        font-size: 10px !important;
-    }
+    .main-content { padding: 80px 10px 40px !important; }
+    .menu-toggle { top: 15px !important; left: 15px !important; padding: 8px 12px !important; font-size: 11px !important; min-width: 80px; }
+    .main-content.pushed { margin-left: 0 !important; }
+    .tier-table { min-width: 800px !important; }
+    .tier-label { width: 70px !important; font-size: 2rem !important; }
+    .char-cell { padding: 10px 5px !important; }
+    .char-grid { gap: 8px !important; }
+    .char-card { width: 70px !important; }
+    .img-box { width: 70px !important; height: 88px !important; }
+    .sidebar { width: 240px !important; }
 }
-
-
-
