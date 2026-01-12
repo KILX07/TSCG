@@ -11,24 +11,25 @@
     <!-- 메뉴 토글 버튼 -->
     <button class="menu-toggle" onclick="toggleSidebar()">☰ MENU</button>
 
-    <!-- 사이드바 -->
-    <nav class="sidebar" id="sidebar">
-        <div class="logo">THE SPIKE CROSS<br><span style="font-size: 0.8rem; opacity: 0.8;">TSCG TIER LIST</span></div>
-        <div class="nav-menu" id="nav-menu">
-            <!-- script.js가 메뉴를 생성함 -->
-        </div>
-        
-        <div class="lang-switcher">
-            <button onclick="changeLang('ko')" class="lang-btn" id="lang-ko">KO</button>
-            <button onclick="changeLang('en')" class="lang-btn" id="lang-en">EN</button>
-            <button onclick="changeLang('jp')" class="lang-btn" id="lang-jp">JP</button>
-        </div>
-    </nav>
+  <!-- 메뉴 토글 버튼 -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰ MENU</button>
 
-    <main class="main-content" id="main-content">
-        <div id="app-view">
-            <!-- 자바스크립트가 내용을 생성함 -->
-        </div>
+    <nav class="sidebar" id="sidebar">
+    <div class="logo">
+        THE SPIKE CROSS
+        <span>TSCG TIER LIST</span>
+    </div>
+
+    <div class="nav-menu" id="nav-menu">
+        <!-- script.js가 채움 -->
+    </div>
+    
+    <div class="lang-switcher">
+        <button onclick="changeLang('ko')" class="lang-btn" id="lang-ko">KO</button>
+        <button onclick="changeLang('en')" class="lang-btn" id="lang-en">EN</button>
+        <button onclick="changeLang('jp')" class="lang-btn" id="lang-jp">JP</button>
+    </div>
+</nav>
 
         <footer class="site-footer">
             <p>This site is an unofficial, <strong>personal fan site and has no official connection to suncyan</strong> </p>
@@ -39,4 +40,5 @@
     <script src="script.js?v=1.1"></script>
 </body>
 </html>
+
 
