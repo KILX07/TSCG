@@ -24,9 +24,9 @@
   { "id": "hari", "name": { "ko": "하리", "en": "Hari", "jp": "ハリ" }, "tier": "S", "grade": "S", "position": "SE", "img": "hari.png" },
   { "id": "hansulhwa", "name": { "ko": "한설화", "en": "Hansulhwa", "jp": "ハン・ソルファ" }, "tier": "A+", "grade": "S", "position": "SE", "img": "hansulhwa.png" },
   { "id": "licia", "name": { "ko": "리시아", "en": "Licia", "jp": "リシア" }, "tier": "A+", "grade": "S", "position": "SE", "img": "licia.png" },
-  { "id": "viola", "name": { "ko": "비올라", "en": "Viola", "jp": "ビオラ" }, "tier": "A+", "grade": "S-", "position": "SE", "img": "viola.png" },
+  { "id": "viola", "name": { "ko": "비올라", "en": "Viola", "jp": "ビオラ" }, "tier": "A", "grade": "S-", "position": "SE", "img": "viola.png" },
   { "id": "sodam", "name": { "ko": "소담", "en": "Sodam", "jp": "ソダム" }, "tier": "A", "grade": "S-", "position": "SE", "img": "sodam.png" },
-  { "id": "tania", "name": { "ko": "타니아", "en": "Tania", "jp": "タニア" }, "tier": "A+", "grade": "S-", "position": "SE", "img": "tania.png" },
+  { "id": "tania", "name": { "ko": "타니아", "en": "Tania", "jp": "タニア" }, "tier": "A", "grade": "S-", "position": "SE", "img": "tania.png" },
   { "id": "jungsohee", "name": { "ko": "정소희", "en": "Jung Sohee", "jp": "チョン・ソヒ" }, "tier": "A", "grade": "S", "position": "SE", "img": "jungsohee.png" },
   { "id": "halla", "name": { "ko": "한라", "en": "Halla", "jp": "ハルラ" }, "tier": "S+", "grade": "S", "position": "MB", "img": "halla.png" },
   { "id": "claire", "name": { "ko": "클레르", "en": "Claire", "jp": "クレール" }, "tier": "S+", "grade": "S", "position": "MB", "img": "claire.png" },
@@ -39,5 +39,6 @@
   { "id": "clyde", "name": { "ko": "클라이드", "en": "Clyde", "jp": "クライド" }, "tier": "A", "grade": "S-", "position": "MB", "img": "clyde.png" }
 
 ]
+
 
 
