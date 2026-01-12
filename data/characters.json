@@ -21,7 +21,7 @@
   { "id": "shif", "name": { "ko": "시프", "en": "Shif", "jp": "シフ" }, "tier": "S", "grade": "S", "position": "SE", "img": "shif.png" },
   { "id": "ayeon", "name": { "ko": "아연", "en": "Ayeon", "jp": "アヨン" }, "tier": "S", "grade": "S", "position": "SE", "img": "ayeon.png" },
   { "id": "nn", "name": { "ko": "NN", "en": "NN", "jp": "NN" }, "tier": "A+", "grade": "S", "position": "SE", "img": "nn.png" },
-  { "id": "hari", "name": { "ko": "하리", "en": "Hari", "jp": "ハリ" }, "tier": "S", "grade": "S", "position": "SE", "img": "hari.png" },
+  { "id": "hari", "name": { "ko": "하리", "en": "Hari", "jp": "ハリ" }, "tier": "S", "grade": "S", "position": "MB", "img": "hari.png" },
   { "id": "hansulhwa", "name": { "ko": "한설화", "en": "Hansulhwa", "jp": "ハン・ソルファ" }, "tier": "A+", "grade": "S", "position": "SE", "img": "hansulhwa.png" },
   { "id": "licia", "name": { "ko": "리시아", "en": "Licia", "jp": "リシア" }, "tier": "A+", "grade": "S", "position": "SE", "img": "licia.png" },
   { "id": "viola", "name": { "ko": "비올라", "en": "Viola", "jp": "ビオラ" }, "tier": "A", "grade": "S-", "position": "SE", "img": "viola.png" },
@@ -39,6 +39,7 @@
   { "id": "clyde", "name": { "ko": "클라이드", "en": "Clyde", "jp": "クライド" }, "tier": "A", "grade": "S-", "position": "MB", "img": "clyde.png" }
 
 ]
+
 
 
 
