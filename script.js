@@ -111,11 +111,20 @@ function render() {
 function renderTierList(container, texts) {
     const tiers = ["S+", "S", "A+", "A"];
     const positions = ["WS", "SE", "MB"];
-    let html = `<h1 style="font-family: 'Black Han Sans'; font-size: 3.5rem; margin-bottom: 40px; text-align: center;">${texts.nav_tierlist}</h1>
-                <div class="table-wrapper">
-                <table class="tier-table"><thead><tr>
-                <th style="width:110px;">${texts.tier}</th><th>${texts.ws}</th><th>${texts.se}</th><th>${texts.mb}</th>
-                </tr></thead><tbody>`;
+    let html = `<h1 style="text-align:center; font-family:'Black Han Sans'; font-size:3.5rem; margin-bottom:50px;">${texts.nav_tierlist}</h1>`;
+    
+    html += `<div class="table-wrapper">
+                <table class="tier-table">
+                    <thead>
+                        <tr>
+                            <th style="width:120px;">${texts.tier}</th>
+                            <th style="width:310px;">${texts.ws}</th>
+                            <th style="width:310px;">${texts.se}</th>
+                            <th style="width:310px;">${texts.mb}</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
     tiers.forEach(t => {
         html += `<tr><td class="tier-label t-${t.replace('+', 'plus')}">${t}</td>`;
         positions.forEach(p => {
@@ -138,4 +147,6 @@ function renderTierList(container, texts) {
     container.innerHTML = html + `</tbody></table></div>`;
 }
 
+// 초기 실행
 initApp();
+
