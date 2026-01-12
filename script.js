@@ -5,13 +5,18 @@ let translations = {};
 
 async function initApp() {
     try {
+        // 깃허브 호스팅 표준 경로로 수정
         const charRes = await fetch('data/characters.json');
         const transRes = await fetch('data/translations.json');
+        
+        if (!charRes.ok || !transRes.ok) throw new Error("JSON load failed");
+        
         characters = await charRes.json();
         translations = await transRes.json();
         render(); 
     } catch (e) {
-        console.error("Data load failed", e);
+        document.getElementById('app-view').innerHTML = `<h2 style="text-align:center; color:#ff4b2b; margin-top:50px;">Data Load Failed</h2>`;
+        console.error(e);
     }
 }
 
@@ -36,6 +41,8 @@ function navigateTo(page) {
 
 function render() {
     const texts = translations[currentLang];
+    if(!texts) return;
+
     const app = document.getElementById('app-view');
     const menu = document.getElementById('nav-menu');
 
@@ -47,7 +54,7 @@ function render() {
     `;
 
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(`lang-${currentLang}`).classList.add('active');
+    if(document.getElementById(`lang-${currentLang}`)) document.getElementById(`lang-${currentLang}`).classList.add('active');
 
     if (currentPage === 'home') {
         app.innerHTML = `
@@ -57,38 +64,58 @@ function render() {
                 <div style="margin-top: 50px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; text-align: left;">
                     <div style="background: #161922; padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
                         <h3 style="color: #fff;">${texts.home_update_title}</h3>
-                        <p style="color: #94a3b8; font-size: 0.9rem; margin-top:10px;">${texts.home_update_1}<br>${texts.home_update_2}</p>
+                        <p style="color: #94a3b8; font-size: 0.85rem; margin-top:10px;">${texts.home_update_1}<br>${texts.home_update_2}</p>
                     </div>
                     <div style="background: #161922; padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
                         <h3 style="color: #fff;">${texts.home_tip_title}</h3>
-                        <p style="color: #94a3b8; font-size: 0.9rem; margin-top:10px;">${texts.home_tip_desc}</p>
+                        <p style="color: #94a3b8; font-size: 0.85rem; margin-top:10px;">${texts.home_tip_desc}</p>
                     </div>
                 </div>
             </div>`;
     } 
+    else if (currentPage === 'characters') {
+        let html = `<h1 style="font-family: 'Black Han Sans'; font-size: 3rem; margin-bottom: 40px; text-align:center;">${texts.nav_chars}</h1>`;
+        const positions = [{k:'WS', n:texts.ws}, {k:'SE', n:texts.se}, {k:'MB', n:texts.mb}];
+        positions.forEach(pos => {
+            html += `<div style="margin-bottom: 50px; width:100%;">
+                <h2 style="font-size: 1.5rem; color: #3b82f6; margin-bottom: 20px; border-bottom: 1px solid rgba(59, 130, 246, 0.2); padding-bottom: 10px; text-align:left;">${pos.n}</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 25px;">`;
+            characters.filter(c => c.position === pos.k).forEach(char => {
+                html += `<div class="char-card" style="width:100px; text-align:center;">
+                    <div class="img-box" style="width:100px; height:125px; border-radius:15px; border:1px solid rgba(255,255,255,0.1); overflow:hidden;"><img src="images/${char.img}" style="width:100%; height:100%; object-fit:cover;"></div>
+                    <div style="margin-top:10px; font-size:13px; font-weight:bold; color:#fff;">${char.name[currentLang]}</div>
+                </div>`;
+            });
+            html += `</div></div>`;
+        });
+        app.innerHTML = html;
+    }
+    else if (currentPage === 'guide') {
+        app.innerHTML = `<h1 style="font-family: 'Black Han Sans'; font-size: 3rem; margin-bottom: 40px; text-align:center;">${texts.guide_title}</h1>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div style="background: #161922; padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                    <h3 style="color: #3b82f6; margin-bottom: 15px;">${texts.guide_role_title}</h3>
+                    <p style="color: #94a3b8; font-size: 0.9rem; line-height:2.2;"><b>WS:</b> ${texts.guide_ws_desc}<br><b>SE:</b> ${texts.guide_se_desc}<br><b>MB:</b> ${texts.guide_mb_desc}</p>
+                </div>
+                <div style="background: #161922; padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                    <h3 style="color: #f9d423; margin-bottom: 15px;">${texts.guide_usage_title}</h3>
+                    <p style="color: #94a3b8; font-size: 0.9rem; line-height:1.8;">${texts.guide_usage_desc}</p>
+                </div>
+            </div>`;
+    }
     else if (currentPage === 'tierlist') {
         renderTierList(app, texts);
     }
-    // 캐릭터 및 가이드 탭 생략 (기존 로직 유지)
 }
 
 function renderTierList(container, texts) {
     const tiers = ["S+", "S", "A+", "A"];
     const positions = ["WS", "SE", "MB"];
-    let html = `<h1 style="text-align:center; font-family:'Black Han Sans'; font-size:3.5rem; margin-bottom:50px;">${texts.nav_tierlist}</h1>`;
-    
-    html += `<div class="table-wrapper">
-                <table class="tier-table">
-                    <thead>
-                        <tr>
-                            <th style="width:120px;">${texts.tier}</th>
-                            <th>${texts.ws}(C0)</th>
-                            <th>${texts.se}(C0)</th>
-                            <th>${texts.mb}(C0)</th>
-                        </tr>
-                    </thead>
-                    <tbody>`;
-    
+    let html = `<h1 style="font-family: 'Black Han Sans'; font-size: 3.5rem; margin-bottom: 40px; text-align: center;">${texts.nav_tierlist}</h1>
+                <div class="table-wrapper">
+                <table class="tier-table"><thead><tr>
+                <th style="width:110px;">${texts.tier}</th><th>${texts.ws}</th><th>${texts.se}</th><th>${texts.mb}</th>
+                </tr></thead><tbody>`;
     tiers.forEach(t => {
         html += `<tr><td class="tier-label t-${t.replace('+', 'plus')}">${t}</td>`;
         positions.forEach(p => {
@@ -112,4 +139,3 @@ function renderTierList(container, texts) {
 }
 
 initApp();
-
