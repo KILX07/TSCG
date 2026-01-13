@@ -5,26 +5,22 @@ let translations = {};
 
 async function initApp() {
     try {
-        // 깃허브 호스팅 표준 경로로 수정
         const charRes = await fetch('data/characters.json');
         const transRes = await fetch('data/translations.json');
-        
         if (!charRes.ok || !transRes.ok) throw new Error("JSON load failed");
-        
         characters = await charRes.json();
         translations = await transRes.json();
         render(); 
     } catch (e) {
         document.getElementById('app-view').innerHTML = `<h2 style="text-align:center; color:#ff4b2b; margin-top:50px;">Data Load Failed</h2>`;
-        console.error(e);
     }
 }
 
 function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('active');
-    document.getElementById('main-content').classList.toggle('pushed');
-    
-    // ⬇️ 이 줄을 추가하세요 (body에 menu-open 클래스를 붙였다 뗐다 함)
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('main-content');
+    sidebar.classList.toggle('active');
+    content.classList.toggle('pushed');
     document.body.classList.toggle('menu-open');
 }
 
@@ -36,9 +32,9 @@ function changeLang(lang) {
 function navigateTo(page) {
     currentPage = page;
     render();
-    if (window.innerWidth <= 768) {
-        document.getElementById('sidebar').classList.remove('active');
-        document.getElementById('main-content').classList.remove('pushed');
+    // 메뉴가 열려있을 때만 닫기 (오버레이 클릭 시 중복 호출 방지)
+    if (document.getElementById('sidebar').classList.contains('active')) {
+        toggleSidebar();
     }
 }
 
@@ -48,13 +44,24 @@ function render() {
 
     const app = document.getElementById('app-view');
     const menu = document.getElementById('nav-menu');
+    const indicator = document.getElementById('nav-indicator');
 
+    // 메뉴 버튼 생성
     menu.innerHTML = `
         <div class="nav-item ${currentPage === 'home' ? 'active' : ''}" onclick="navigateTo('home')">${texts.nav_home}</div>
         <div class="nav-item ${currentPage === 'characters' ? 'active' : ''}" onclick="navigateTo('characters')">${texts.nav_chars}</div>
         <div class="nav-item ${currentPage === 'guide' ? 'active' : ''}" onclick="navigateTo('guide')">${texts.nav_guide}</div>
         <div class="nav-item ${currentPage === 'tierlist' ? 'active' : ''}" onclick="navigateTo('tierlist')">${texts.nav_tierlist}</div>
     `;
+
+    // 파란 박스(Indicator) 위치 이동 로직
+    setTimeout(() => {
+        const activeItem = menu.querySelector('.active');
+        if (activeItem) {
+            indicator.style.display = 'block';
+            indicator.style.top = activeItem.offsetTop + 'px';
+        }
+    }, 50);
 
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
     if(document.getElementById(`lang-${currentLang}`)) document.getElementById(`lang-${currentLang}`).classList.add('active');
@@ -114,22 +121,11 @@ function render() {
 function renderTierList(container, texts) {
     const tiers = ["S+", "S", "A+", "A"];
     const positions = ["WS", "SE", "MB"];
-    
-    // 제목을 표 너비 안에서 중앙 정렬하기 위해 스타일 추가
-    let html = `<h1 style="width:100%; text-align:center; font-family:'Black Han Sans'; font-size:3.5rem; margin-bottom:50px; letter-spacing:-1px;">${texts.nav_tierlist}</h1>`;
-    
-    html += `<div class="table-wrapper">
-                <table class="tier-table">
-                    <thead>
-                        <tr>
-                            <th style="width:120px;">${texts.tier}</th>
-                            <th style="width:310px;">${texts.ws}</th>
-                            <th style="width:310px;">${texts.se}</th>
-                            <th style="width:310px;">${texts.mb}</th>
-                        </tr>
-                    </thead>
-                    <tbody>`;
-
+    let html = `<h1 style="font-family: 'Black Han Sans'; font-size: 3.5rem; margin-bottom: 40px; text-align: center;">${texts.nav_tierlist}</h1>
+                <div class="table-wrapper">
+                <table class="tier-table"><thead><tr>
+                <th style="width:120px;">${texts.tier}</th><th style="width:310px;">${texts.ws}</th><th style="width:310px;">${texts.se}</th><th style="width:310px;">${texts.mb}</th>
+                </tr></thead><tbody>`;
     tiers.forEach(t => {
         html += `<tr><td class="tier-label t-${t.replace('+', 'plus')}">${t}</td>`;
         positions.forEach(p => {
@@ -152,8 +148,4 @@ function renderTierList(container, texts) {
     container.innerHTML = html + `</tbody></table></div>`;
 }
 
-// 초기 실행
 initApp();
-
-
-
