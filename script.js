@@ -8,7 +8,7 @@ async function initApp() {
     try {
         const charRes = await fetch('data/characters.json');
         const transRes = await fetch('data/translations.json');
-        if (!charRes.ok || !transRes.ok) throw new Error("JSON failed");
+        if (!charRes.ok || !transRes.ok) throw new Error("JSON fail");
         characters = await charRes.json();
         translations = await transRes.json();
         render(); 
@@ -17,37 +17,33 @@ async function initApp() {
     }
 }
 
-// 2. 메뉴 제어 (애니메이션 클래스 포함)
+// 2. 사이드바 제어
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const content = document.getElementById('main-content');
     sidebar.classList.toggle('active');
     
-    // PC에서 사이드바가 열릴 때 본문을 밀어줌
     if (window.innerWidth > 768) {
         content.classList.toggle('pushed');
     }
     document.body.classList.toggle('menu-open');
 }
 
-// 3. 언어 변경
-function changeLang(lang) {
-    currentLang = lang;
-    render();
-}
-
-// 4. 페이지 이동 (탭 선택 시 무조건 메뉴 닫기 핵심 로직)
+// 3. 페이지 이동 (선택 즉시 닫기)
 function navigateTo(page) {
     currentPage = page;
     render();
-    
-    // 메뉴가 열려있다면 즉시 닫기
     if (document.body.classList.contains('menu-open')) {
         toggleSidebar();
     }
 }
 
-// 5. 화면 렌더링
+function changeLang(lang) {
+    currentLang = lang;
+    render();
+}
+
+// 4. 화면 그리기
 function render() {
     const texts = translations[currentLang];
     if(!texts) return;
@@ -56,7 +52,6 @@ function render() {
     const menu = document.getElementById('nav-menu');
     const indicator = document.getElementById('nav-indicator');
 
-    // 메뉴 생성
     menu.innerHTML = `
         <div class="nav-item ${currentPage === 'home' ? 'active' : ''}" onclick="navigateTo('home')">${texts.nav_home}</div>
         <div class="nav-item ${currentPage === 'characters' ? 'active' : ''}" onclick="navigateTo('characters')">${texts.nav_chars}</div>
@@ -64,7 +59,7 @@ function render() {
         <div class="nav-item ${currentPage === 'tierlist' ? 'active' : ''}" onclick="navigateTo('tierlist')">${texts.nav_tierlist}</div>
     `;
 
-    // 파란 박스 이동 애니메이션
+    // 파란 박스 이동
     setTimeout(() => {
         const activeItem = menu.querySelector('.active');
         if (activeItem && indicator) {
@@ -73,15 +68,11 @@ function render() {
         }
     }, 100);
 
-    // 언어 버튼 활성화
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-    if(document.getElementById(`lang-${currentLang}`)) {
-        document.getElementById(`lang-${currentLang}`).classList.add('active');
-    }
+    if(document.getElementById(`lang-${currentLang}`)) document.getElementById(`lang-${currentLang}`).classList.add('active');
 
-    // 본문 내용 렌더링
     if (currentPage === 'home') {
-        app.innerHTML = `<div style="text-align:center;"><h1 style="font-family:'Black Han Sans'; font-size:4rem; color:#3b82f6; margin-bottom:20px;">${texts.home_welcome}</h1><p style="color:#64748b; font-size:1.2rem;">${texts.home_desc}</p><div style="margin-top:50px; display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px; text-align:left;"><div style="background:#161922; padding:25px; border-radius:20px; border:1px solid rgba(255,255,255,0.05);"><h3 style="color:#fff;">${texts.home_update_title}</h3><p style="color:#94a3b8; font-size:0.85rem; margin-top:10px;">${texts.home_update_1}<br>${texts.home_update_2}</p></div><div style="background:#161922; padding:25px; border-radius:20px; border:1px solid rgba(255,255,255,0.05);"><h3 style="color:#fff;">${texts.home_tip_title}</h3><p style="color:#94a3b8; font-size:0.85rem; margin-top:10px;">${texts.home_tip_desc}</p></div></div></div>`;
+        app.innerHTML = `<div style="text-align:center;"><h1 style="font-family:'Black Han Sans'; font-size:4rem; color:#3b82f6; margin-bottom:20px;">${texts.home_welcome}</h1><p style="color:#64748b; font-size:1.2rem;">${texts.home_desc}</p></div>`;
     } 
     else if (currentPage === 'tierlist') renderTierList(app, texts);
     else if (currentPage === 'characters') renderCharacters(app, texts);
@@ -91,7 +82,7 @@ function render() {
 function renderTierList(container, texts) {
     const tiers = ["S+", "S", "A+", "A"];
     const positions = ["WS", "SE", "MB"];
-    let html = `<h1 style="text-align:center; font-family:'Black Han Sans'; font-size:3.5rem; margin-bottom:50px; width:100%;">${texts.nav_tierlist}</h1>
+    let html = `<h1 style="text-align:center; font-family:'Black Han Sans'; font-size:3.5rem; margin-bottom:50px;">${texts.nav_tierlist}</h1>
                 <div class="table-wrapper"><table class="tier-table"><thead><tr>
                 <th style="width:120px;">${texts.tier}</th><th style="width:310px;">${texts.ws}</th><th style="width:310px;">${texts.se}</th><th style="width:310px;">${texts.mb}</th>
                 </tr></thead><tbody>`;
@@ -118,7 +109,7 @@ function renderCharacters(container, texts) {
     let html = `<h1 style="font-family:'Black Han Sans'; font-size:3rem; margin-bottom:40px; text-align:center;">${texts.nav_chars}</h1>`;
     const posList = [{k:'WS', n:texts.ws}, {k:'SE', n:texts.se}, {k:'MB', n:texts.mb}];
     posList.forEach(pos => {
-        html += `<div style="margin-bottom: 50px; width:100%;"><h2 style="font-size:1.5rem; color:#3b82f6; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px; margin-bottom:20px;">${pos.n}</h2>
+        html += `<div style="margin-bottom: 50px; width:100%;"><h2 style="font-size:1.5rem; color:#3b82f6; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px; margin-bottom:20px; text-align:left;">${pos.n}</h2>
                     <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(100px, 1fr)); gap:20px; justify-items:center;">`;
         characters.filter(c => c.position === pos.k).forEach(char => {
             html += `<div class="char-card" style="width:100px;"><div class="img-box" style="width:100px; height:125px; border-radius:15px;"><img src="images/${char.img}" style="width:100%; height:100%; object-fit:cover;"></div>
@@ -132,8 +123,8 @@ function renderCharacters(container, texts) {
 function renderGuide(container, texts) {
     container.innerHTML = `<h1 style="font-family:'Black Han Sans'; font-size:3rem; margin-bottom:40px; text-align:center;">${texts.guide_title}</h1>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:30px; width:100%;">
-            <div style="background:#161922; padding:30px; border-radius:20px; border:1px solid rgba(255,255,255,0.05);"><h3 style="color:#3b82f6; margin-bottom:15px;">${texts.guide_role_title}</h3><p style="color:#94a3b8; font-size:0.9rem; line-height:2.2;"><b>WS:</b> ${texts.guide_ws_desc}<br><b>SE:</b> ${texts.guide_se_desc}<br><b>MB:</b> ${texts.guide_mb_desc}</p></div>
-            <div style="background:#161922; padding:30px; border-radius:20px; border:1px solid rgba(255,255,255,0.05);"><h3 style="color:#f9d423; margin-bottom:15px;">${texts.guide_usage_title}</h3><p style="color:#94a3b8; font-size:0.9rem; line-height:1.8;">${texts.guide_usage_desc}</p></div>
+            <div style="background:#161922; padding:30px; border-radius:20px; border:1px solid rgba(255,255,255,0.05);"><h3 style="color:#3b82f6; margin-bottom:15px;">${texts.guide_role_title}</h3><p style="color:#94a3b8; font-size:0.9rem; line-height:2.2; text-align:left;"><b>WS:</b> ${texts.guide_ws_desc}<br><b>SE:</b> ${texts.guide_se_desc}<br><b>MB:</b> ${texts.guide_mb_desc}</p></div>
+            <div style="background:#161922; padding:30px; border-radius:20px; border:1px solid rgba(255,255,255,0.05);"><h3 style="color:#f9d423; margin-bottom:15px;">${texts.guide_usage_title}</h3><p style="color:#94a3b8; font-size:0.9rem; line-height:1.8; text-align:left;">${texts.guide_usage_desc}</p></div>
         </div>`;
 }
 
