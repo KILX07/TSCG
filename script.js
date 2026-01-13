@@ -19,19 +19,19 @@ async function initApp() {
     }
 }
 
-// 사이드바 토글 기능 (이벤트 전파 방지 처리)
+// 사이드바 토글 (이벤트 전파 방지 추가)
 function toggleSidebar(event) {
-    if (event) event.stopPropagation();
+    if (event) event.stopPropagation(); 
     document.getElementById('sidebar').classList.toggle('active');
     document.getElementById('main-content').classList.toggle('pushed');
 }
 
-// --- [추가: 빈 공간 클릭 시 사이드바 닫기 로직] ---
+// --- [추가: 외부 클릭 시 닫기] ---
 document.addEventListener('click', (e) => {
     const sidebar = document.getElementById('sidebar');
     const toggleBtn = document.getElementById('toggle-btn');
     
-    // 사이드바가 활성화된 상태에서 클릭한 곳이 사이드바 내부가 아니고 버튼도 아닐 때
+    // 사이드바가 열려있고, 클릭한 곳이 사이드바 내부가 아니며, 버튼도 아닐 때
     if (sidebar.classList.contains('active') && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
         sidebar.classList.remove('active');
         document.getElementById('main-content').classList.remove('pushed');
@@ -52,12 +52,11 @@ function navigateTo(page) {
     }
 }
 
-// --- [추가: 하이라이트 박스 위치 업데이트] ---
+// --- [추가: 하이라이트 위치 이동 함수] ---
 function updateHighlight() {
     const activeItem = document.querySelector('.nav-item.active');
     const highlight = document.getElementById('nav-highlight');
     if (activeItem && highlight) {
-        // active 요소의 위치(y값)만큼 transform 시킴
         const yPos = activeItem.offsetTop;
         highlight.style.transform = `translateY(${yPos}px)`;
     }
@@ -70,7 +69,7 @@ function render() {
     const app = document.getElementById('app-view');
     const menu = document.getElementById('nav-menu');
 
-    // 메뉴 렌더링 (하이라이트 div 포함)
+    // 하이라이트 div를 메뉴 최상단에 추가
     menu.innerHTML = `
         <div id="nav-highlight"></div>
         <div class="nav-item ${currentPage === 'home' ? 'active' : ''}" onclick="navigateTo('home')">${texts.nav_home}</div>
@@ -79,12 +78,13 @@ function render() {
         <div class="nav-item ${currentPage === 'tierlist' ? 'active' : ''}" onclick="navigateTo('tierlist')">${texts.nav_tierlist}</div>
     `;
 
-    // 렌더링 직후 하이라이트 위치 조정
-    setTimeout(updateHighlight, 0);
+    // 렌더링 후 하이라이트 위치 업데이트
+    setTimeout(updateHighlight, 10);
 
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
     if(document.getElementById(`lang-${currentLang}`)) document.getElementById(`lang-${currentLang}`).classList.add('active');
 
+    // ... (이하 기존 render 로직 유지: 홈, 캐릭터, 가이드, 티어표 등)
     if (currentPage === 'home') {
         app.innerHTML = `
             <div style="text-align: center;">
@@ -140,21 +140,8 @@ function render() {
 function renderTierList(container, texts) {
     const tiers = ["S+", "S", "A+", "A"];
     const positions = ["WS", "SE", "MB"];
-    
     let html = `<h1 style="width:100%; text-align:center; font-family:'Black Han Sans'; font-size:3.5rem; margin-bottom:50px; letter-spacing:-1px;">${texts.nav_tierlist}</h1>`;
-    
-    html += `<div class="table-wrapper">
-                <table class="tier-table">
-                    <thead>
-                        <tr>
-                            <th style="width:120px;">${texts.tier}</th>
-                            <th style="width:310px;">${texts.ws}</th>
-                            <th style="width:310px;">${texts.se}</th>
-                            <th style="width:310px;">${texts.mb}</th>
-                        </tr>
-                    </thead>
-                    <tbody>`;
-
+    html += `<div class="table-wrapper"><table class="tier-table"><thead><tr><th style="width:120px;">${texts.tier}</th><th style="width:310px;">${texts.ws}</th><th style="width:310px;">${texts.se}</th><th style="width:310px;">${texts.mb}</th></tr></thead><tbody>`;
     tiers.forEach(t => {
         html += `<tr><td class="tier-label t-${t.replace('+', 'plus')}">${t}</td>`;
         positions.forEach(p => {
@@ -162,13 +149,7 @@ function renderTierList(container, texts) {
             characters.filter(c => c.tier === t && c.position === p).forEach(char => {
                 const gradeClass = char.grade.replace('+', 'plus').replace('-', 'minus');
                 const tierClass = t.replace('+', 'plus');
-                html += `<div class="char-card card-${tierClass}">
-                            <div class="img-box">
-                                <img src="images/${char.img}" onerror="this.src='https://via.placeholder.com/80x100'">
-                                <div class="grade-tag grade-${gradeClass}">${char.grade}</div>
-                            </div>
-                            <div class="char-name">${char.name[currentLang]}</div>
-                        </div>`;
+                html += `<div class="char-card card-${tierClass}"><div class="img-box"><img src="images/${char.img}" onerror="this.src='https://via.placeholder.com/80x100'"><div class="grade-tag grade-${gradeClass}">${char.grade}</div></div><div class="char-name">${char.name[currentLang]}</div></div>`;
             });
             html += `</div></td>`;
         });
