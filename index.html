@@ -51,7 +51,7 @@
             position: relative; /* 하이라이트 박스의 기준점 */
         }
 
-        /* 미끄러지는 하이라이트 박스 */
+        /* 미끄러지는 파란색 하이라이트 박스 */
         #nav-highlight {
             position: absolute;
             left: 0;
@@ -73,7 +73,7 @@
             color: #94a3b8 !important; text-decoration: none; font-weight: 700; cursor: pointer; 
             transition: color 0.3s;
         }
-        /* 기존 active 배경색 제거 (하이라이트 박스가 대신함) */
+        /* 기존 active 배경색 속성 제거 (하이라이트 박스가 대신함) */
         .nav-item.active { color: #ffffff !important; }
 
         /* --- [4. 메인 콘텐츠] --- */
@@ -124,19 +124,6 @@
         .img-box img { width: 100% !important; height: 100% !important; object-fit: cover; display: block; }
         .char-name { margin-top: 8px; font-size: 11px; color: #94a3b8; font-weight: bold; white-space: nowrap; }
 
-        .t-Splus { color: #ff4b2b !important; text-shadow: 0 0 10px rgba(255, 75, 43, 0.5); }
-        .t-S { color: #f9d423 !important; }
-        .t-Aplus { color: #a3e635 !important; }
-        .t-A { color: #a855f7 !important; text-shadow: 0 0 10px rgba(168, 85, 247, 0.5); }
-
-        .card-Splus:hover .img-box { border-color: #ff4b2b; box-shadow: 0 0 15px #ff4b2b; transform: translateY(-5px); }
-        .card-S:hover .img-box { border-color: #f9d423; box-shadow: 0 0 15px #f9d423; transform: translateY(-5px); }
-        .card-Aplus:hover .img-box { border-color: #a3e635; box-shadow: 0 0 15px #a3e635; transform: translateY(-5px); }
-        .card-A:hover .img-box { border-color: #a855f7; box-shadow: 0 0 15px #a855f7; transform: translateY(-5px); }
-
-        .grade-tag { position: absolute; bottom: 0; right: 0; padding: 2px 4px; font-size: 9px; font-weight: 900; border-top-left-radius: 8px; color: #fff; }
-        .grade-Splus { background: #ff4b2b; } .grade-S { background: #f9d423; color: #000 !important; } .grade-Sminus { background: #fef08a; color: #000 !important; } .grade-A { background: #a855f7; }
-
         .lang-switcher { margin-top: auto; display: flex; gap: 5px; justify-content: center; padding-bottom: 20px; }
         .lang-btn { background: none; border: 1px solid rgba(255,255,255,0.1); color: #64748b; padding: 6px 10px; border-radius: 5px; cursor: pointer; font-size: 11px; }
         .lang-btn.active { border-color: #3b82f6; color: #fff; }
@@ -170,6 +157,6 @@
         </footer>
     </main>
 
-    <script src="script.js?v=2.1"></script>
+    <script src="script.js?v=2.2"></script>
 </body>
 </html>
