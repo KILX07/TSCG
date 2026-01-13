@@ -132,6 +132,19 @@
     </style>
 </head>
 <body>
+    <!-- ⭐ 추가: 메뉴 외 영역 클릭 시 닫기용 오버레이 -->
+    <div id="overlay" onclick="toggleSidebar()"></div>
+
+    <button class="menu-toggle" onclick="toggleSidebar()">☰ MENU</button>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="logo">THE SPIKE CROSS<span>TSCG TIER LIST</span></div>
+        
+        <!-- ⭐ 메뉴 컨테이너 (내부에 움직이는 박스가 들어감) -->
+        <div id="nav-menu" style="position: relative;">
+            <div id="nav-indicator"></div> <!-- 👈 움직이는 파란 박스 -->
+            <div id="nav-items-wrapper"></div> <!-- 👈 실제 메뉴 글자들 -->
+        </div>
     <button class="menu-toggle" onclick="toggleSidebar()">☰ MENU</button>
 
     <nav class="sidebar" id="sidebar">
@@ -155,4 +168,5 @@
     <script src="script.js?v=2.1"></script>
 </body>
 </html>
+
 
