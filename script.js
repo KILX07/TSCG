@@ -5,7 +5,6 @@ let translations = {};
 
 async function initApp() {
     try {
-        // 깃허브 호스팅 표준 경로로 수정
         const charRes = await fetch('data/characters.json');
         const transRes = await fetch('data/translations.json');
         
@@ -20,10 +19,24 @@ async function initApp() {
     }
 }
 
-function toggleSidebar() {
+// 사이드바 토글 기능 (이벤트 전파 방지 처리)
+function toggleSidebar(event) {
+    if (event) event.stopPropagation();
     document.getElementById('sidebar').classList.toggle('active');
     document.getElementById('main-content').classList.toggle('pushed');
 }
+
+// --- [추가: 빈 공간 클릭 시 사이드바 닫기 로직] ---
+document.addEventListener('click', (e) => {
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggle-btn');
+    
+    // 사이드바가 활성화된 상태에서 클릭한 곳이 사이드바 내부가 아니고 버튼도 아닐 때
+    if (sidebar.classList.contains('active') && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+        sidebar.classList.remove('active');
+        document.getElementById('main-content').classList.remove('pushed');
+    }
+});
 
 function changeLang(lang) {
     currentLang = lang;
@@ -39,6 +52,17 @@ function navigateTo(page) {
     }
 }
 
+// --- [추가: 하이라이트 박스 위치 업데이트] ---
+function updateHighlight() {
+    const activeItem = document.querySelector('.nav-item.active');
+    const highlight = document.getElementById('nav-highlight');
+    if (activeItem && highlight) {
+        // active 요소의 위치(y값)만큼 transform 시킴
+        const yPos = activeItem.offsetTop;
+        highlight.style.transform = `translateY(${yPos}px)`;
+    }
+}
+
 function render() {
     const texts = translations[currentLang];
     if(!texts) return;
@@ -46,12 +70,17 @@ function render() {
     const app = document.getElementById('app-view');
     const menu = document.getElementById('nav-menu');
 
+    // 메뉴 렌더링 (하이라이트 div 포함)
     menu.innerHTML = `
+        <div id="nav-highlight"></div>
         <div class="nav-item ${currentPage === 'home' ? 'active' : ''}" onclick="navigateTo('home')">${texts.nav_home}</div>
         <div class="nav-item ${currentPage === 'characters' ? 'active' : ''}" onclick="navigateTo('characters')">${texts.nav_chars}</div>
         <div class="nav-item ${currentPage === 'guide' ? 'active' : ''}" onclick="navigateTo('guide')">${texts.nav_guide}</div>
         <div class="nav-item ${currentPage === 'tierlist' ? 'active' : ''}" onclick="navigateTo('tierlist')">${texts.nav_tierlist}</div>
     `;
+
+    // 렌더링 직후 하이라이트 위치 조정
+    setTimeout(updateHighlight, 0);
 
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
     if(document.getElementById(`lang-${currentLang}`)) document.getElementById(`lang-${currentLang}`).classList.add('active');
@@ -112,7 +141,6 @@ function renderTierList(container, texts) {
     const tiers = ["S+", "S", "A+", "A"];
     const positions = ["WS", "SE", "MB"];
     
-    // 제목을 표 너비 안에서 중앙 정렬하기 위해 스타일 추가
     let html = `<h1 style="width:100%; text-align:center; font-family:'Black Han Sans'; font-size:3.5rem; margin-bottom:50px; letter-spacing:-1px;">${texts.nav_tierlist}</h1>`;
     
     html += `<div class="table-wrapper">
@@ -149,6 +177,4 @@ function renderTierList(container, texts) {
     container.innerHTML = html + `</tbody></table></div>`;
 }
 
-// 초기 실행
 initApp();
-
