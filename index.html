@@ -46,13 +46,33 @@
         }
         .logo span { display: block; font-size: 0.75rem; color: #64748b; margin-top: 5px; }
 
-        /* 메뉴 아이템 텍스트 중앙 정렬 */
-        .nav-item {
-            display: flex !important; align-items: center !important; justify-content: center !important;
-            height: 55px; width: 100%; margin-bottom: 12px; border-radius: 12px;
-            color: #94a3b8 !important; text-decoration: none; font-weight: 700; cursor: pointer; transition: 0.3s;
-        }
-        .nav-item.active { background: #3b82f6 !important; color: #ffffff !important; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
+        /* --- 기존 .nav-item 관련 코드를 지우고 아래로 교체 --- */
+.nav-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 55px;
+    width: 100%;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    color: #94a3b8 !important;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+    background: transparent !important; /* ⭐ 배경을 투명하게 해서 움직이는 박스가 보이게 함 */
+    transition: color 0.3s ease;
+}
+
+/* 활성화된 글자만 하얗게 강조 */
+.nav-item.active {
+    color: #ffffff !important;
+}
+
+/* 사이드바가 열렸을 때 오버레이를 보이게 하는 클래스 */
+body.menu-open #overlay {
+    display: block;
+    opacity: 1;
+}
 
         /* --- [4. 메인 콘텐츠 - PC 정중앙 정렬 강제] --- */
         .main-content {
@@ -168,5 +188,6 @@
     <script src="script.js?v=2.1"></script>
 </body>
 </html>
+
 
 
