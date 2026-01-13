@@ -3,6 +3,7 @@ let currentPage = 'home';
 let characters = [];
 let translations = {};
 
+// 1. 초기 데이터 로드
 async function initApp() {
     try {
         const charRes = await fetch('data/characters.json');
@@ -16,28 +17,39 @@ async function initApp() {
     }
 }
 
+// 2. 사이드바 제어 (오버레이 및 바디 클래스 추가)
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const content = document.getElementById('main-content');
     sidebar.classList.toggle('active');
-    content.classList.toggle('pushed');
+    
+    // PC에서는 사이드바가 열릴 때 본문을 밀어줌
+    if (window.innerWidth > 768) {
+        content.classList.toggle('pushed');
+    }
+    
+    // 오버레이 및 배경 블러 처리를 위한 클래스 토글
     document.body.classList.toggle('menu-open');
 }
 
+// 3. 언어 변경
 function changeLang(lang) {
     currentLang = lang;
     render();
 }
 
+// 4. 페이지 이동 (이동 즉시 메뉴 닫기 추가)
 function navigateTo(page) {
     currentPage = page;
     render();
-    // 메뉴가 열려있을 때만 닫기 (오버레이 클릭 시 중복 호출 방지)
-    if (document.getElementById('sidebar').classList.contains('active')) {
+    
+    // ⭐ 메뉴가 열려있다면 즉시 닫기
+    if (document.body.classList.contains('menu-open')) {
         toggleSidebar();
     }
 }
 
+// 5. 화면 렌더링
 function render() {
     const texts = translations[currentLang];
     if(!texts) return;
@@ -54,18 +66,20 @@ function render() {
         <div class="nav-item ${currentPage === 'tierlist' ? 'active' : ''}" onclick="navigateTo('tierlist')">${texts.nav_tierlist}</div>
     `;
 
-    // 파란 박스(Indicator) 위치 이동 로직
+    // ⭐ 파란 박스(Indicator) 부드러운 이동 로직
     setTimeout(() => {
         const activeItem = menu.querySelector('.active');
-        if (activeItem) {
+        if (activeItem && indicator) {
             indicator.style.display = 'block';
             indicator.style.top = activeItem.offsetTop + 'px';
         }
-    }, 50);
+    }, 100);
 
+    // 언어 버튼 강조
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
     if(document.getElementById(`lang-${currentLang}`)) document.getElementById(`lang-${currentLang}`).classList.add('active');
 
+    // 본문 내용 렌더링
     if (currentPage === 'home') {
         app.innerHTML = `
             <div style="text-align: center;">
@@ -126,6 +140,7 @@ function renderTierList(container, texts) {
                 <table class="tier-table"><thead><tr>
                 <th style="width:120px;">${texts.tier}</th><th style="width:310px;">${texts.ws}</th><th style="width:310px;">${texts.se}</th><th style="width:310px;">${texts.mb}</th>
                 </tr></thead><tbody>`;
+    
     tiers.forEach(t => {
         html += `<tr><td class="tier-label t-${t.replace('+', 'plus')}">${t}</td>`;
         positions.forEach(p => {
