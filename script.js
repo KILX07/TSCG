@@ -23,6 +23,9 @@ async function initApp() {
 function toggleSidebar() {
     document.getElementById('sidebar').classList.toggle('active');
     document.getElementById('main-content').classList.toggle('pushed');
+    
+    // ⬇️ 이 줄을 추가하세요 (body에 menu-open 클래스를 붙였다 뗐다 함)
+    document.body.classList.toggle('menu-open');
 }
 
 function changeLang(lang) {
@@ -151,5 +154,6 @@ function renderTierList(container, texts) {
 
 // 초기 실행
 initApp();
+
 
 
