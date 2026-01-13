@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Spike Cross Guide</title>
     <style>
-        /* --- [1. 전역 설정 및 폰트] --- */
+        /* --- [1. 전역 설정] --- */
         @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Pretendard:wght@600;900&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -18,7 +18,19 @@
             overflow-x: hidden; 
         }
 
-        /* --- [2. 메뉴 버튼 (MENU)] --- */
+        /* --- [2. 빈 화면 클릭 시 닫기용 오버레이] --- */
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+            z-index: 1500;
+            display: none; /* 기본 숨김 */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        body.menu-open #overlay { display: block; opacity: 1; }
+
+        /* --- [3. 메뉴 버튼] --- */
         .menu-toggle {
             position: fixed; top: 20px; left: 20px; z-index: 3000;
             background: #3b82f6 !important; color: white !important;
@@ -29,7 +41,7 @@
             white-space: nowrap;
         }
 
-        /* --- [3. 사이드바 디자인] --- */
+        /* --- [4. 사이드바 디자인] --- */
         .sidebar {
             width: 260px; height: 100vh; background: #11131a !important;
             position: fixed; top: 0; left: -260px;
@@ -46,96 +58,60 @@
         }
         .logo span { display: block; font-size: 0.75rem; color: #64748b; margin-top: 5px; }
 
-/* --- [메뉴 아이템 수정] --- */
-.nav-item {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    height: 55px;
-    width: 100%;
-    margin-bottom: 12px;
-    border-radius: 12px;
-    color: #94a3b8 !important;
-    text-decoration: none;
-    font-weight: 700;
-    cursor: pointer;
-    background: transparent !important; /* ⭐ 배경을 투명하게 해서 뒤의 파란 박스가 보이게 함 */
-    transition: color 0.3s ease;
-}
+        /* --- [5. 움직이는 메뉴 하이라이트 박스] --- */
+        #nav-menu-container { position: relative; width: 100%; }
+        #nav-indicator {
+            position: absolute; left: 0; width: 100%; height: 55px;
+            background: #3b82f6; border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            display: none;
+        }
 
-/* 선택된 메뉴의 글자색만 하얗게 강조 */
-.nav-item.active {
-    color: #ffffff !important;
-}
+        .nav-item {
+            position: relative; z-index: 1;
+            display: flex !important; align-items: center !important; justify-content: center !important;
+            height: 55px; width: 100%; margin-bottom: 12px; border-radius: 12px;
+            color: #94a3b8 !important; text-decoration: none; font-weight: 700; 
+            cursor: pointer; transition: color 0.3s; background: transparent !important;
+        }
+        .nav-item.active { color: #ffffff !important; }
 
-/* --- [오버레이 활성화 클래스] --- */
-body.menu-open #overlay {
-    display: block;
-    opacity: 1;
-}
-
-        /* --- [4. 메인 콘텐츠 - PC 정중앙 정렬 강제] --- */
+        /* --- [6. 본문 및 티어표] --- */
         .main-content {
             flex: 1; padding: 100px 20px 40px;
             transition: 0.4s ease; width: 100%;
-            display: flex; flex-direction: column; 
-            align-items: center; /* ⭐ PC에서 가로 중앙 정렬 핵심 */
+            display: flex; flex-direction: column; align-items: center;
         }
-        .main-content.pushed { margin-left: 260px; }
+        .main-content.pushed { padding-left: 260px; }
 
-        /* 표와 제목을 하나로 묶어주는 컨테이너 */
-        #app-view {
-            width: 100%;
-            max-width: 1050px; /* ⭐ 표의 너비와 똑같이 맞춰서 정렬 유지 */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* --- [5. 티어표 디자인 - 크기 박제] --- */
-        .table-wrapper { 
-            width: 100%; 
-            overflow-x: auto !important; /* 모바일 가로 스크롤 허용 */
-            border-radius: 20px; 
-            background: #161922; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-
-        .tier-table { 
-            width: 1050px !important; 
-            min-width: 1050px !important; 
-            border-collapse: collapse; 
-            table-layout: fixed; 
-        }
-
-        .tier-table th { 
-            background: #0d0f14; padding: 15px; color: #475569; 
-            font-size: 0.85rem; border-right: 1px solid rgba(255,255,255,0.05); 
-            text-align: center;
-        }
+        .table-wrapper { width: 100%; max-width: 1080px; overflow-x: auto; border-radius: 20px; background: #161922; }
+        .tier-table { width: 1050px !important; min-width: 1050px !important; border-collapse: collapse; table-layout: fixed; }
+        .tier-table th { background: #0d0f14; padding: 15px; color: #475569; font-size: 0.85rem; border-right: 1px solid rgba(255,255,255,0.05); }
         .tier-label { width: 120px !important; text-align: center; font-family: 'Black Han Sans'; font-size: 3.5rem; border-right: 2px solid #0a0b10; }
         .char-cell { width: 310px !important; padding: 25px 10px; border-bottom: 1px solid #0a0b10; border-right: 1px solid rgba(255, 255, 255, 0.05); vertical-align: top; }
         .char-cell:last-child { border-right: none; }
-
         .char-grid { display: grid !important; grid-template-columns: repeat(3, 85px) !important; gap: 15px; justify-content: center; }
+
         .char-card { width: 85px !important; text-align: center; }
         .img-box { width: 85px !important; height: 110px !important; border-radius: 10px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,0.1); position: relative; transition: 0.3s; }
         .img-box img { width: 100% !important; height: 100% !important; object-fit: cover; display: block; }
         .char-name { margin-top: 8px; font-size: 11px; color: #94a3b8; font-weight: bold; white-space: nowrap; }
 
-        /* 티어별 색상 및 호버 */
+        /* 티어별 색상 */
         .t-Splus { color: #ff4b2b !important; text-shadow: 0 0 10px rgba(255, 75, 43, 0.5); }
         .t-S { color: #f9d423 !important; }
         .t-Aplus { color: #a3e635 !important; }
         .t-A { color: #a855f7 !important; text-shadow: 0 0 10px rgba(168, 85, 247, 0.5); }
 
+        /* 글로우 효과 */
         .card-Splus:hover .img-box { border-color: #ff4b2b; box-shadow: 0 0 15px #ff4b2b; transform: translateY(-5px); }
         .card-S:hover .img-box { border-color: #f9d423; box-shadow: 0 0 15px #f9d423; transform: translateY(-5px); }
-        .card-Aplus:hover .img-box { border-color: #a3e635; box-shadow: 0 0 15px #a3e635; transform: translateY(-5px); }
         .card-A:hover .img-box { border-color: #a855f7; box-shadow: 0 0 15px #a855f7; transform: translateY(-5px); }
+        .card-Aplus:hover .img-box { border-color: #a3e635; box-shadow: 0 0 15px #a3e635; transform: translateY(-5px); }
 
         /* 배지 */
-        .grade-tag { position: absolute; bottom: 0; right: 0; padding: 2px 4px; font-size: 9px; font-weight: 900; border-top-left-radius: 8px; color: #fff; }
+        .grade-tag { position: absolute; bottom: 0; right: 0; padding: 2px 4px; font-size: 9px; font-weight: 900; border-top-left-radius: 8px; color: #fff; z-index: 10; }
         .grade-Splus { background: #ff4b2b; } .grade-S { background: #f9d423; color: #000 !important; } .grade-Sminus { background: #fef08a; color: #000 !important; } .grade-A { background: #a855f7; }
 
         /* 언어 및 푸터 */
@@ -145,32 +121,28 @@ body.menu-open #overlay {
         .site-footer { margin-top: 50px; text-align: center; color: #475569; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); width: 100%; max-width: 1050px; font-size: 12px; }
 
         @media (max-width: 768px) {
-            .main-content { margin-left: 0 !important; padding: 80px 10px 40px !important; align-items: center; }
-            .main-content.pushed { margin-left: 0 !important; }
+            .main-content { padding: 80px 15px 40px !important; }
+            .main-content.pushed { padding-left: 0 !important; }
             .sidebar { width: 260px !important; }
         }
     </style>
 </head>
 <body>
-    <!-- ⭐ 추가: 메뉴 외 영역 클릭 시 닫기용 오버레이 -->
-    <div id="overlay" onclick="toggleSidebar()" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1500; display:none; opacity:0; transition:0.3s; backdrop-filter:blur(2px);"></div>
+    <!-- 배경 클릭 시 메뉴 닫기용 오버레이 -->
+    <div id="overlay" onclick="toggleSidebar()"></div>
 
     <button class="menu-toggle" onclick="toggleSidebar()">☰ MENU</button>
 
     <nav class="sidebar" id="sidebar">
-        <div class="logo">
-            THE SPIKE CROSS
-            <span>TSCG TIER LIST</span>
+        <div class="logo">THE SPIKE CROSS<span>TSCG TIER LIST</span></div>
+        
+        <div id="nav-menu-container">
+            <!-- 움직이는 배경 박스 -->
+            <div id="nav-indicator"></div>
+            <!-- 실제 메뉴 아이템 -->
+            <div id="nav-menu"></div>
         </div>
 
-        <!-- ⭐ 메뉴 구조 변경: 애니메이션 박스(indicator) 추가 -->
-        <div id="nav-menu-container" style="position: relative;">
-            <div id="nav-indicator" style="position:absolute; left:0; width:100%; height:55px; background:#3b82f6; border-radius:12px; transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index:0; box-shadow:0 4px 12px rgba(59, 130, 246, 0.3); display:none;"></div>
-            <div id="nav-menu" style="position: relative; z-index: 1;">
-                <!-- script.js가 여기에 메뉴 아이템들을 그립니다 -->
-            </div>
-        </div>
-        
         <div class="lang-switcher">
             <button onclick="changeLang('ko')" class="lang-btn" id="lang-ko">KO</button>
             <button onclick="changeLang('en')" class="lang-btn" id="lang-en">EN</button>
@@ -182,15 +154,10 @@ body.menu-open #overlay {
         <div id="app-view"></div>
         <footer class="site-footer">
             <p>© Copyright 2026. <strong>TSCG discord server</strong> all rights reserved.</p>
-            <p style="font-size: 10px; opacity: 0.5; margin-top:5px;">This site is an unofficial, personal fan site and has no official connection to suncyan.</p>
+            <p style="font-size: 10px; opacity: 0.5; margin-top:5px;">This is not an official website.</p>
         </footer>
     </main>
 
-    <script src="script.js?v=2.1"></script>
+    <script src="script.js?v=3.0"></script>
 </body>
 </html>
-
-
-
-
-
