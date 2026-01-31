@@ -1,7 +1,13 @@
 {
   "ko": {
-    "nav_home": "홈", "nav_chars": "캐릭터", "nav_guide": "가이드", "nav_tierlist": "티어표",
-    "tier": "등급", "ws": "윙 스파이커(C0)", "se": "세터(C0)", "mb": "미들 블로커(C0)",
+    "nav_home": "홈",
+    "nav_chars": "캐릭터",
+    "nav_guide": "가이드",
+    "nav_tierlist": "티어표",
+    "tier": "등급",
+    "ws": "윙 스파이커(C0)",
+    "se": "세터(C0)",
+    "mb": "미들 블로커(C0)",
     "home_welcome": "더 스파이크: 크로스 가이드",
     "home_desc": "더 스파이크: 크로스 가이드에 오신 것을 환영합니다.",
     "home_update_title": "📢 안내사항",
@@ -15,11 +21,22 @@
     "guide_se_desc": "-",
     "guide_mb_desc": "-",
     "guide_usage_title": "⭐ 준비중",
-    "guide_usage_desc": "-"
+    "guide_usage_desc": "-",
+    "guide_select_char": "캐릭터를 선택하여 상세 정보를 확인하세요.",
+    "guide_stats": "추천 스탯",
+    "guide_party": "추천 파티",
+    "guide_breakthrough": "추천 돌파",
+    "guide_no_data": "가이드 데이터 준비중"
   },
   "en": {
-    "nav_home": "Home", "nav_chars": "Characters", "nav_guide": "Guide", "nav_tierlist": "Tier List",
-    "tier": "Tier", "ws": "Wing Spiker(C0)", "se": "Setter(C0)", "mb": "Middle Blocker(C0)",
+    "nav_home": "Home",
+    "nav_chars": "Characters",
+    "nav_guide": "Guide",
+    "nav_tierlist": "Tier List",
+    "tier": "Tier",
+    "ws": "Wing Spiker(C0)",
+    "se": "Setter(C0)",
+    "mb": "Middle Blocker(C0)",
     "home_welcome": "The Spike: Cross Guide",
     "home_desc": "Welcome to the The Spike: Cross Guide.",
     "home_update_title": "📢 Information",
@@ -33,11 +50,22 @@
     "guide_se_desc": "-",
     "guide_mb_desc": "-",
     "guide_usage_title": "⭐ Coming Soon",
-    "guide_usage_desc": "-"
+    "guide_usage_desc": "-",
+    "guide_select_char": "Select a character to view details.",
+    "guide_stats": "Rec. Stats",
+    "guide_party": "Best Party",
+    "guide_breakthrough": "Rec. Breakthrough",
+    "guide_no_data": "Guide Setup In Progress"
   },
   "jp": {
-    "nav_home": "ホーム", "nav_chars": "キャラ", "nav_guide": "ガイド", "nav_tierlist": "ティア表",
-    "tier": "ティア", "ws": "WS(C0)", "se": "SE(C0)", "mb": "MB(C0)",
+    "nav_home": "ホーム",
+    "nav_chars": "キャラ",
+    "nav_guide": "ガイド",
+    "nav_tierlist": "ティア表",
+    "tier": "ティア",
+    "ws": "WS(C0)",
+    "se": "SE(C0)",
+    "mb": "MB(C0)",
     "home_welcome": "ザ・スパイク：クロス ガイド",
     "home_desc": "ザ・スパイク：クロス ガイドィへようこそ。",
     "home_update_title": "📢 お知らせ",
@@ -51,8 +79,11 @@
     "guide_se_desc": "-",
     "guide_mb_desc": "-",
     "guide_usage_title": "⭐ Coming Soon",
-    "guide_usage_desc": "-"
+    "guide_usage_desc": "-",
+    "guide_select_char": "キャラクターを選択して詳細を確認してください。",
+    "guide_stats": "推奨ステータス",
+    "guide_party": "推奨パーティ",
+    "guide_breakthrough": "推奨突破",
+    "guide_no_data": "ガイド準備中"
   }
 }
-
-
